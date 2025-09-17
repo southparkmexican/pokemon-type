@@ -239,7 +239,7 @@ public class Bag {
     }
     private static void useMysteryEgg(Scanner sc1) throws InterruptedException{
         String choice = "";
-        while (true) {
+        while (Bag.specialItems.get("Mystery Egg") > 0) {
             Graphics.printMysteryEgg();
             System.out.println("Hatch Mystery Egg? (Y/N) | You have: " + Bag.specialItems.get("Mystery Egg"));
             choice = sc1.nextLine().trim().toUpperCase();
