@@ -14,9 +14,24 @@
 - Catching system, items, switching, trick room, and more
 - Save file system to track all progress
 
-## Build and Run
-Open a terminal (anything should work but recommendations: Mac - iTerm2 | Linux - Kitty/Konsole | Windows - MSYS2)
+
+## Running a Release .jar
+- Download the latest release from the releases section on the repo.
+- Make sure you have Java 24 installed before trying to run the jar.
+- Before moving forward, put the downloaded jar somewhere you're happy with in your filesystem.
+- Open your terminal:
+```bash
+cd <path/to/your/jar/>
+# we'll set up a convenient alias, which will also make sure save-loading is consistent (also, edit the path below, it has to be right!):
+echo 'alias pkm="cd <path/to/your/jar> && java -jar target/pokemon_tbje-1.0.jar"' >> ~/.bashrc # or ~/.zshrc, etc.
+source ~/.bashrc # or ~/.zshrc, etc. 
+# now you can do this to play anytime:
+pkm
 ```
+
+## Build and Run
+Open your terminal: 
+```bash
 cd <where/you/keep/java/projects>
 git clone https://github.com/zachMahan64/pokemon-tbje.git
 # make sure you have the latest versions of Java and Maven before proceeding:
@@ -25,8 +40,7 @@ mvn --version  # ^ same
 cd pokemon-tbje
 mvn clean package
 java -jar target/pokemon_tbje-1.0.jar
-
-# add this alias (POSIX only) for ease, if you want (& edit the path):
+# add this alias (POSIX only) for ease, if you want (also, edit the path below, it has to be right!):
 echo 'alias pkm="cd ~/<path/to>/pokemon-tbje/ && java -jar target/pokemon_tbje-1.0.jar"' >> ~/.bashrc # or ~/.zshrc, etc.
 source ~/.bashrc # or ~/.zshrc, etc. 
 # now you can do this to play anytime:
