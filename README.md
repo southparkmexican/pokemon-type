@@ -1,14 +1,12 @@
-# pokemonTextBasedJavaEdition
+# Pokemon Text Based Java Edition (pokemon-tbje)
 ![title_img.png](resources/title_img.png)
-### (A.K.A. pokemon_tbje) - by Zach Mahan
 
 **A terminal-based Pokémon battle game, written in Java, complete with 241 species, faithful game mechanics, adjustable difficulty, dynamic AI, procedurally generated opponents, random wild encounters, competitive battles, and custom graphics. Built from scratch over 2 months.**
 
 ## Features
-
 - 241 Pokémon with stats, types, evolutions, moves, and sprites
 - Real battle mechanics: type matchups, stat changes, status effects, weather
-- Smart AI trained via custom in-game ML multi-threaded simulation engine
+- Smart AI trained via custom in-engine ML multi-threaded simulation
 - Dynamic difficulty scaling, procedurally generated trainers/opponents
 - Full single-player campaign: gym leaders, wild encounters, Team Rocket, Colosseum, and Elite Four
 - Improved money system: Proper bank, loans, stocks, gold assets, and a casino with playable mini-games!
@@ -16,24 +14,32 @@
 - Catching system, items, switching, trick room, and more
 - Save file system to track all progress
 
-## How to Run
+## Build and Run
+Open a terminal (anything should work but recommendations: Mac - iTerm2 | Linux - Kitty/Konsole | Windows - MSYS2)
+```
+cd <where/you/keep/java/projects>
+git clone https://github.com/zachMahan64/pokemon-tbje.git
+# make sure you have the latest versions of Java and Maven before proceeding:
+java --version # should say >= Java 24
+mvn --version  # ^ same
+cd pokemon-tbje
+mvn clean package
+java -jar target/pokemon_tbje-1.0.jar
 
-1. Clone the repo:
-   - Open a terminal (recommendations: Mac - iTerm2 | Linux - Kitty/Konsole | Windows - MSYS2)
-   - `cd <where/you/keep/java/projects>`
-   - `git clone https://github.com/zachMahan64/pokemonTextBasedJavaEdition.git`
-2. Compile & run:
-   - Make sure you have the latest versions of Java (>=24 required) and Maven before proceeding.
-   - `cd <where/you/keep/java/projects>/pokemonTextBasedJavaEdition`
-   - `mvn clean package` (this builds w/ Maven)
-   - `java -jar target/pokemon_tbje-1.0.jar`
-   - Enjoy the game
-3. Make sure terminal font is size is < 14.0 (not too important as long as you have at least ~70 rows) and line spacing is set to 1.0 (crucial for visual proportions)!
-4. Remember, the visuals may not look right if you're on a Windows terminal or not using a mono-spaced font (mono-space propo is also okay).
+# add this alias (POSIX only) for ease, if you want (& edit the path):
+echo 'alias pkm="cd ~/<path/to>/pokemon-tbje/ && java -jar target/pokemon_tbje-1.0.jar"' >> ~/.bashrc # or ~/.zshrc, etc.
+source ~/.zshrc 
+# now you can do this to play anytime:
+pkm
+```
+Note: saves are always loaded in `saves/` *parallel* to the directory you start up pkm-tbje! The alias provided above handles this consistently for you.
+Tips:
+- Make sure:
+  - your terminal is at least ~ 70 x 120 characters (adjust to your own liking, though) 
+  - your terminal font is size is < 14.0 (not too important as long as you have at least ~70 rows) and line spacing is set to 1.0 (crucial for visual proportions)!
+  - you're using a mono-spaced font for proper graphics proportions
 
 ## AI Engine
-
-The AI/Analysis Engine:
 - Analyzes matchups in real-time based on game state and 30+ engine parameters
 - Trained with smart parameter tweaking algorithm which uses 1-prop z-tests to check for statistical significance on improvements from parameter tweaks
 - Scores moves and switches with a point total system
@@ -44,9 +50,8 @@ The AI/Analysis Engine:
 - **See screenshot section for the game analysis interface**
 
 ## Visuals & Audio
-
 - Uses Unicode braille characters as pixel-art dot matrices. Also uses ANSI escape strings for color.
-- All coloring was done by hand.
+- All coloring was done by hand (painfully).
 - Dot-converted Pokémon, trainer, and location images. Used: https://emojicombos.com/dot-art-generator (amazing website, btw).
 - Background music & sound effects via JavaFX (YouTube-sourced MP3s and waveforms, I do not own the rights)
 - Over 50 soundtracks and sound effects are in the game!
@@ -54,16 +59,13 @@ The AI/Analysis Engine:
 - **See screenshot section to view visuals for yourself**
 
 ## Platform Support
-
 - Works best on **Mac/Linux** terminals.
-- Windows' terminal may clobber the visuals a bit due to character spacing issues. Use Msys2 on Windows!
+- Windows' terminal may clobber the visuals a bit due to character spacing issues. Try using MSYS2 on Windows!
 - Potential build issues: the build will fail if Java or Maven are not pointing to open-jdk-24. Ensure Java 24 is installed on your computer.
-- Run `java --version` and `mvn --version` to check if Java 24 is installed and active.
 
 ## Notes
-
-- This was my first project. Some early code is messy. Much of it has been painstakingly refactored, but core design issues remain (largely stemming the overuse of global state).
-- Project on hold for now, might add more features in the future or use the game core for a proper GUI version.
+- This was my first large coding project. The codebase isn't great (in quite a few places). A lot of it has been painstakingly refactored, though.
+- Project on hold for now, but might revisit in the future!
 ## Screenshots
 ![battle_sim_demo.png](resources/battle_sim_demo.png)
 ^ see the match-up analysis interface (and our shiny charizard)

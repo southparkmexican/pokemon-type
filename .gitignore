@@ -1,37 +1,14 @@
-### IntelliJ IDEA ###
 out*/
 !**/**/out/
 !**/src/test/**/out/
 target*
 .idea*/
 
-### Maven ###
 dependency-reduced-pom.xml
-
-### Eclipse ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-bin/
-!**/**/bin/
-!**/src/test/**/bin/
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
 
 ### VS Code ###
 .vscode/
 
-### Mac OS ###
 .DS_Store
 
-### Saves ###
-saves*/
+saves/*.json

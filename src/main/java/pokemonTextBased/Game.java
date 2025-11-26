@@ -224,10 +224,10 @@ public class Game {
         while (true) {
             Sound.playMusicOnLoop("music/manWhoSoldTheWorld.mp3");
             for(int i = 0; i < 10; i++) {
-                System.out.println("=".repeat(137));
+                System.out.println("=".repeat(120));
             }
             Graphics.printBigTitleImage();
-            System.out.println("=".repeat(137));
+            System.out.println("=".repeat(120));
             System.out.println("----------------------------------");
             System.out.println("| [ENTER] to start | [E] to exit |");
             System.out.println("----------------------------------");
@@ -252,10 +252,10 @@ public class Game {
         while (true) {
             Sound.playMusicOnLoop("music/manWhoSoldTheWorld.mp3");
             for(int i = 0; i < 1; i++) {
-                System.out.println("=".repeat(137));
+                System.out.println("=".repeat(120));
             }
             Graphics.printBigTitleImage();
-            System.out.println("=".repeat(137));
+            System.out.println("=".repeat(120));
             System.out.println("----------------------------------");
             System.out.println("| [ENTER] to start | [E] to exit |");
             System.out.println("----------------------------------");
