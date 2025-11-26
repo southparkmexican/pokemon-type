@@ -6,9 +6,8 @@ target*
 
 dependency-reduced-pom.xml
 
-### VS Code ###
 .vscode/
 
 .DS_Store
 
-saves/
+saves/*.json
