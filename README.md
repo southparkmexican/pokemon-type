@@ -28,7 +28,7 @@ java -jar target/pokemon_tbje-1.0.jar
 
 # add this alias (POSIX only) for ease, if you want (& edit the path):
 echo 'alias pkm="cd ~/<path/to>/pokemon-tbje/ && java -jar target/pokemon_tbje-1.0.jar"' >> ~/.bashrc # or ~/.zshrc, etc.
-source ~/.zshrc 
+source ~/.bashrc # or ~/.zshrc, etc. 
 # now you can do this to play anytime:
 pkm
 ```
