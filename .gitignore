@@ -11,4 +11,4 @@ dependency-reduced-pom.xml
 
 .DS_Store
 
-saves/*.json
+saves/

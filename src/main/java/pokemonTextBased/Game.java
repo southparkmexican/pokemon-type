@@ -37,12 +37,14 @@ public class Game {
     public static boolean playStatus = true;
     public static boolean testStatus = false;
 
+    private static final String SIGNATURE = "POKEMON-TBJE VERSION 1.0";
+
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         new javafx.embed.swing.JFXPanel();
         Scanner sc1 = new Scanner(System.in);
         Thread.sleep(100);
         Graphics.printClearLines(50);
-        bootIntoVer(testStatus, sc1);
+        bootUpGame(testStatus, sc1);
         enterDummyMainMenu(sc1);
         SaveSys.promptUserToLoadGame(sc1);
         if(Party.p[0] == null) {
@@ -373,12 +375,9 @@ public class Game {
     }
 
     //tools
-    public static void bootIntoVer(boolean testStatus, Scanner sc1) throws InterruptedException, ExecutionException {
+    public static void bootUpGame(boolean testStatus, Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.playMusicOnLoop("music/titleMusic.mp3");
-        System.out.println("ALPHA 4/2025");
-        if(!testStatus) {
-            System.out.println("BOOTED IN VER. REG");
-        }
+        System.out.println(SIGNATURE);
         if (testStatus) {
             System.out.println("BOOTED IN VER. TEST");
             Sound.playMusicOnLoop("music/titleMusic.mp3");

@@ -396,13 +396,13 @@ public class User {
         String choice= " ";
         while(true){
             System.out.println("               SELECT BATTLE HINT MODE");
-            System.out.println("===================================================");
-            System.out.println("| [1] NO HINTS                                    |");
-            System.out.println("|-------------------------------------------------|");
-            System.out.println("| [2] SHOW MOVE EFFECTIVENESS                     |");
-            System.out.println("|-------------------------------------------------|");
-            System.out.println("| [3] SHOW LIVE GAME ENGINE ANALYSIS              |");
-            System.out.println("---------------------------------------------------");
+            System.out.println("====================================================");
+            System.out.println("| [1] NO HINTS                                     |");
+            System.out.println("|--------------------------------------------------|");
+            System.out.println("| [2] SHOW MOVE EFFECTIVENESS                      |");
+            System.out.println("|--------------------------------------------------|");
+            System.out.println("| [3] SHOW LIVE GAME ENGINE ANALYSIS (RECOMMENDED) |");
+            System.out.println("----------------------------------------------------");
             choice = sc1.nextLine().trim().toUpperCase();
             if(choice.equals("1")){
                 hintMode = Hints.NO_HINTS;
