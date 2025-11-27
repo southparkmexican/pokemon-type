@@ -28,7 +28,7 @@ source ~/.bashrc # or ~/.zshrc, etc.
 # now you can do this to play anytime:
 pkm
 ```
-
+- If running the jar doesn't work for you for whatever reason, try to build it with Maven in the following section.
 ## Build and Run
 Open your terminal: 
 ```bash
