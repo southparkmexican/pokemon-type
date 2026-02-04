@@ -53,11 +53,11 @@ public class Location {
             return displayName;
         }
     }
-    //map logic
+
+    // map logic
     public static void openMap(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        label:
-        while (!Party.checkIfEveryPkmHasFainted()) {
+        label: while (!Party.checkIfEveryPkmHasFainted()) {
             Sound.playMusicOnLoop("music/creditsTheme.mp3");
             Graphics.printMap();
             System.out.println("Where would you like to go?");
@@ -75,7 +75,7 @@ public class Location {
                     continue;
                 }
             } catch (NumberFormatException e) {
-                //proceed! :D
+                // proceed! :D
             }
 
             switch (choiceMap) {
@@ -129,6 +129,7 @@ public class Location {
         Sound.stopAllSounds();
         rushToNearestPokemonCenterIfFainted();
     }
+
     public static void rushToNearestPokemonCenterIfFainted() throws InterruptedException {
         if (Party.checkIfEveryPkmHasFainted()) {
             System.out.println("You whited out and were rushed to the nearest Pokemon Center!");
@@ -137,391 +138,408 @@ public class Location {
             Game.pressEnterToContinue();
         }
     }
-    //city logic
-    //Pallet Town
+
+    // city logic
+    // Pallet Town
     public static void goToPalletTown(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/palletTownTheme.mp3");
             Graphics.printPalletTown();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("H")){
+            if (choice.equals("H")) {
                 goHome(sc1);
             }
-            if(choice.equals("K")){
+            if (choice.equals("K")) {
                 goToOakLabs(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
-    public static void goHome(Scanner sc1) throws InterruptedException{
-        String choice= "";
-        do{
+
+    public static void goHome(Scanner sc1) throws InterruptedException {
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/palletTownTheme.mp3");
             Graphics.printHome();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("T")){
+            if (choice.equals("T")) {
                 NPC.talkTo(NPC.Character.MOM, sc1);
             }
-            if(choice.equals("R")){
+            if (choice.equals("R")) {
                 healPartyWithDialogueAndSound();
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
+
     public static void goToOakLabs(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/labTheme.mp3");
             Graphics.printOakLabs();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("T")){
+            if (choice.equals("T")) {
                 NPC.talkTo(NPC.Character.PROFESSOR, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
-    //Viridian City
+
+    // Viridian City
     public static void goToViridianCity(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/viridianTheme.mp3");
             Graphics.printViridianCity();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("G")) {
+            if (choice.equals("G")) {
                 goToViridianGym(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToViridianGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/viridianTheme.mp3");
             Graphics.printViridianGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.VIRIDIAN_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    //Pewter City
+
+    // Pewter City
     public static void goToPewterCity(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/pewterTheme.mp3");
             Graphics.printPewterCity();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("G")) {
+            if (choice.equals("G")) {
                 goToPewterGym(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToPewterGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/pewterTheme.mp3");
             Graphics.printPewterGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.PEWTER_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    //Cerulean City
+
+    // Cerulean City
     public static void goToCeruleanCity(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/ceruleanTheme.mp3");
             Graphics.printCeruleanCity();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("G")) {
+            if (choice.equals("G")) {
                 goToCeruleanGym(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToCeruleanGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/ceruleanTheme.mp3");
             Graphics.printCeruleanGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.CERULEAN_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    //Vermillion City
+
+    // Vermillion City
     public static void goToVermillionCity(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/vermillionTheme.mp3");
             Graphics.printVermillionCity();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("G")) {
+            if (choice.equals("G")) {
                 goToVermillionGym(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToVermillionGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/vermillionTheme.mp3");
             Graphics.printVermillionGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.VERMILLION_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    //Lavender Town
+
+    // Lavender Town
     public static void goToLavenderTown(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/lavenderTownTheme.mp3");
             Graphics.printLavenderTown();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("T")) {
+            if (choice.equals("T")) {
                 goToPokemonTower(sc1);
             }
-            if(choice.equals("S")) {
+            if (choice.equals("S")) {
                 goToStVagaChurch(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToPokemonTower(Scanner sc1) throws InterruptedException {
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/lavenderTownTheme.mp3");
             Graphics.printPokemonTower();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 System.out.println("Sorry, this building is closed to visitors.");
                 Thread.sleep(User.textSpeed);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
+
     public static void goToStVagaChurch(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/churchTheme.mp3");
             Graphics.printStVagaChurchExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterStVagaChurch(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void enterStVagaChurch(Scanner sc1) throws InterruptedException {
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Graphics.printStVagaChurchInterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("T")){
+            if (choice.equals("T")) {
                 NPC.talkTo(NPC.Character.FATHER_PUCHTON, sc1);
             }
-            if(choice.equals("C")){
+            if (choice.equals("C")) {
                 confessSins(sc1);
             }
-            if(choice.equals("M")){
+            if (choice.equals("M")) {
                 makeADonationToStVagaChurch(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
+
     public static void confessSins(Scanner sc1) throws InterruptedException {
         Random rand = new Random();
         Graphics.printNPC(NPC.Character.FATHER_PUCHTON);
         System.out.println("FATHER PUCHTON:");
-        String[] lines = {"May the Lord forgive you.",
+        String[] lines = { "May the Lord forgive you.",
                 "Your sins are forgiven.",
                 "Fear not, my child, you are forgiven.",
                 "The Lord shall forgive you, I am sure.",
-                "May the Lord bless you, my child."};
-        String line = lines[rand.nextInt(lines.length-1)];
+                "May the Lord bless you, my child." };
+        String line = lines[rand.nextInt(lines.length - 1)];
         System.out.println(line);
         Game.pressEnterToContinue(sc1);
-                System.out.println("A healing feeling permeates your being...");
-        if(User.reputation < 0) User.increaseReputation(10);
+        System.out.println("A healing feeling permeates your being...");
+        if (User.reputation < 0)
+            User.increaseReputation(10);
         Game.pressEnterToContinue();
     }
-    public static void makeADonationToStVagaChurch(Scanner sc1) throws InterruptedException{
+
+    public static void makeADonationToStVagaChurch(Scanner sc1) throws InterruptedException {
         Graphics.printNPC(NPC.Character.FATHER_PUCHTON);
         System.out.println("FATHER PUCHTON:");
         System.out.println("How much would you like to donate? (0 to cancel)");
         long donation = getValidLong(sc1);
-        if(donation == 0) {
+        if (donation == 0) {
             Graphics.printNPC(NPC.Character.FATHER_PUCHTON);
             System.out.println("FATHER PUCHTON:");
             System.out.println("Oh, you decided not to donate?");
             Game.pressEnterToContinue();
-        }
-        else if(donation > 0) {
-            User.increaseReputation((int) donation/10);
+        } else if (donation > 0) {
+            User.increaseReputation((int) donation / 10);
             Graphics.printNPC(NPC.Character.FATHER_PUCHTON);
             System.out.println("FATHER PUCHTON:");
             if (donation < Bag.getPokedollars() && donation < 1000) {
                 System.out.println("Wow, I really appreciate that--you're a blessed soul.");
                 System.out.println();
                 Bag.spendPokedollars(donation);
-            }
-            else if (donation < Bag.getPokedollars()){
+            } else if (donation < Bag.getPokedollars()) {
                 System.out.println("Wow, God bless your soul. That is so generous.");
                 System.out.println();
                 Bag.spendPokedollars(donation);
-            }
-            else {
+            } else {
                 System.out.println("Come back when you're richer.");
             }
             Game.pressEnterToContinue();
         }
     }
-    //Saffron City
+
+    // Saffron City
     public static void goToSaffronCity(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/saffronTheme.mp3");
             Graphics.printSaffronCity();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("G")) {
+            if (choice.equals("G")) {
                 goToSaffronGym(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToSaffronGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/saffronTheme.mp3");
             Graphics.printSaffronGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.SAFFRON_GYM_LEADER, sc1);
             }
-            if(choice.equals("S")){
+            if (choice.equals("S")) {
                 slideIntoSaffronNightClub(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
+
     public static void slideIntoSaffronNightClub(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
         Sound.playMusicOnLoop("music/nightClubTheme.mp3");
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Graphics.printNightClub();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("C")) {
+            if (choice.equals("C")) {
                 System.out.println("[ENTER] to stop chilling");
                 sc1.nextLine();
             }
-            if(choice.equals("S")) {
+            if (choice.equals("S")) {
                 NPC.talkTo(NPC.Character.SABRINA_NIGHTCLUB, sc1);
             }
-            if(choice.equals("B")) {
+            if (choice.equals("B")) {
                 NPC.talkTo(NPC.Character.BLUE_NIGHTCLUB, sc1);
             }
-            if(choice.equals("R")) {
-                label:
-                while (true) {
+            if (choice.equals("R")) {
+                label: while (true) {
                     System.out.println("What should the band play?");
                     System.out.println(" [1] A relaxing song");
                     System.out.println(" [2] A song sung by Sabrina");
@@ -554,216 +572,226 @@ public class Location {
                     }
                 }
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
-    //Fuchsia City
+
+    // Fuchsia City
     public static void goToFuchsiaCity(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/fuchsiaTheme.mp3");
             Graphics.printFuchsiaCity();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("G")) {
+            if (choice.equals("G")) {
                 goToFuchsiaGym(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToFuchsiaGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/fuchsiaTheme.mp3");
             Graphics.printFuchsiaGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.FUCHSIA_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    //Cinnabar Island
+
+    // Cinnabar Island
     public static void goToCinnabarIsland(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/cinnabarTheme.mp3");
             Graphics.printCinnabarIsland();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("G")) {
+            if (choice.equals("G")) {
                 goToCinnabarGym(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToCinnabarGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/cinnabarTheme.mp3");
             Graphics.printCinnabarGym();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.CINNABAR_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    //Indigo Plateau
+
+    // Indigo Plateau
     public static void goToIndigoPlateau(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
             Graphics.printIndigoPlateau();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("F")) {
+            if (choice.equals("F")) {
                 faceThePokemonLeague(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void faceThePokemonLeague(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
             Graphics.printPokemonLeagueStadium();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("B")){
+            if (choice.equals("B")) {
                 battleTheEliteFour(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
+
     public static void battleTheEliteFour(Scanner sc1) throws InterruptedException, ExecutionException {
-            boolean beatLorelei = false;
-            boolean beatBruno = false;
-            boolean beatAgatha = false;
-            boolean beatLance = false;
+        boolean beatLorelei = false;
+        boolean beatBruno = false;
+        boolean beatAgatha = false;
+        boolean beatLance = false;
+        openOptionsOrContinue(sc1);
+        beatLorelei = Encounter.enterTrainerBattle(new Trainer(Trainer.Title.ELITE_FOUR_LORELEI), sc1);
+        Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
+        if (beatLorelei) {
             openOptionsOrContinue(sc1);
-            beatLorelei = Encounter.enterTrainerBattle(new Trainer(Trainer.Title.ELITE_FOUR_LORELEI), sc1);
+            beatBruno = Encounter.enterTrainerBattle(new Trainer(Trainer.Title.ELITE_FOUR_BRUNO), sc1);
             Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
-            if (beatLorelei) {
-                openOptionsOrContinue(sc1);
-                beatBruno = Encounter.enterTrainerBattle(new Trainer(Trainer.Title.ELITE_FOUR_BRUNO), sc1);
-                Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
-            }
-            if (beatBruno) {
-                openOptionsOrContinue(sc1);
-                beatAgatha = Encounter.enterTrainerBattle(new Trainer(Trainer.Title.ELITE_FOUR_AGATHA), sc1);
-                Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
-            }
-            if (beatAgatha) {
-                openOptionsOrContinue(sc1);
-                beatLance = Encounter.enterTrainerBattle(new Trainer(Trainer.Title.ELITE_FOUR_LANCE), sc1);
-                Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
-            }
-            if (beatLance) {
-                System.out.println("You beat the elite four...");
-                System.out.println("But the CHAMPION, RED, is no where to be seen...");
-                Game.pressEnterToContinue(sc1);
-            }
+        }
+        if (beatBruno) {
+            openOptionsOrContinue(sc1);
+            beatAgatha = Encounter.enterTrainerBattle(new Trainer(Trainer.Title.ELITE_FOUR_AGATHA), sc1);
+            Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
+        }
+        if (beatAgatha) {
+            openOptionsOrContinue(sc1);
+            beatLance = Encounter.enterTrainerBattle(new Trainer(Trainer.Title.ELITE_FOUR_LANCE), sc1);
+            Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
+        }
+        if (beatLance) {
+            System.out.println("You beat the elite four...");
+            System.out.println("But the CHAMPION, RED, is no where to be seen...");
+            Game.pressEnterToContinue(sc1);
+        }
         rushToNearestPokemonCenterIfFainted();
     }
-    //Rocketopolis
-    public static void goToRocketopolis(Scanner sc1) throws InterruptedException, ExecutionException{
+
+    // Rocketopolis
+    public static void goToRocketopolis(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/vaughanDistrictTheme.mp3");
             Graphics.printRocketopolis();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")){
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("C")){
+            if (choice.equals("C")) {
                 enterCasino(sc1);
             }
-            if(choice.equals("R")){
+            if (choice.equals("R")) {
                 enterRapidashRacetrack(sc1);
             }
-            if(choice.equals("S")){
+            if (choice.equals("S")) {
                 goOntoTheStreetsOfRocketopolis(sc1);
             }
-            if(choice.equals("G")){
+            if (choice.equals("G")) {
                 goToRocketopolisGym(sc1);
             }
-            if(choice.equals("T")){
+            if (choice.equals("T")) {
                 goToTheColosseum(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToRocketopolisGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/vaughanDistrictTheme.mp3");
             Graphics.printRocketopolisGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.ROCKETOPOLIS_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    public static void enterCasino(Scanner sc1) throws  InterruptedException{
+
+    public static void enterCasino(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
         Sound.playMusicOnLoop("music/casinoTheme.mp3");
         String choice;
-        do{
+        do {
             Graphics.printCasinoLogo();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("B")){
+            if (choice.equals("B")) {
                 Casino.startBlackjack();
             }
-            if(choice.equals("W")){
+            if (choice.equals("W")) {
                 Casino.startWhosThatPokemon(sc1);
             }
-            if(choice.equals("R")){
+            if (choice.equals("R")) {
                 Casino.startRoulette();
             }
         } while (!choice.equals("L"));
@@ -771,60 +799,66 @@ public class Location {
         Thread.sleep(User.textSpeed);
         Sound.stopAllSounds();
     }
+
     public static void enterRapidashRacetrack(Scanner sc1) throws InterruptedException {
         String choice;
-        do{
+        do {
             Graphics.printRapidashTrack();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("B")){
+            if (choice.equals("B")) {
                 RapidashRace.simulateRace();
             }
         } while (!choice.equals("L"));
         System.out.println("See you at the track again soon!");
         Thread.sleep(User.textSpeed);
     }
-    public static void goOntoTheStreetsOfRocketopolis(Scanner sc1) throws InterruptedException{
+
+    public static void goOntoTheStreetsOfRocketopolis(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
         String choice;
-        do{
+        do {
             Sound.playMusicOnLoop("music/rocketopolisTheme.mp3");
             Graphics.printRocketopolisStreets();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
-            if(choice.equals("H")){
+            if (choice.equals("H")) {
                 goToPokemonBlackMarket(sc1);
             }
-            if(choice.equals("R")){
+            if (choice.equals("R")) {
                 robSomeone(sc1);
             }
-            if(choice.equals("V")){
+            if (choice.equals("V")) {
                 visitSchizoJoe(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
-    public static void robSomeone(Scanner sc1) throws InterruptedException{
+
+    public static void robSomeone(Scanner sc1) throws InterruptedException {
         String choice;
         Random rand = new Random();
-        do{
+        do {
             double chance = Math.random();
-            if(chance < 0.85) {
+            if (chance < 0.85) {
                 int moneyStolen = (int) (Math.random() * 80);
                 String[] innocentPeople = {
-                        "an innocent old man", "a mother and her child", "a teenage girl", "a teenage boy", "a middle-aged woman",
-                        "an innocent passerby", "an old lady carrying her groceries", "a child", "a father and his son", "a mother and her son",
-                        "a mother and her daughter", "a retired Team Rocket member", "Nurse Joy", "Erika", "a hiker", "a cyclist", "a teacher",
-                        "a man walking his dog", "a kid riding a scooter", "a veteran", "an innocent passerby", "a pedestrian"
+                        "an innocent old man", "a mother and her child", "a teenage girl", "a teenage boy",
+                        "a middle-aged woman",
+                        "an innocent passerby", "an old lady carrying her groceries", "a child", "a father and his son",
+                        "a mother and her son",
+                        "a mother and her daughter", "a retired Team Rocket member", "Nurse Joy", "Erika", "a hiker",
+                        "a cyclist", "a teacher",
+                        "a man walking his dog", "a kid riding a scooter", "a veteran", "an innocent passerby",
+                        "a pedestrian"
                 };
                 String randomPerson = innocentPeople[rand.nextInt(innocentPeople.length)];
                 System.out.println("You stole " + moneyStolen + " Pokedollars from " + randomPerson + ".\n");
                 Thread.sleep((long) (.5 * User.textSpeed));
                 Bag.adjustPokedollarBalance(moneyStolen);
                 Game.pressEnterToContinue(sc1);
-            }
-            else{
+            } else {
                 int moneyStolenFromPlayer = (int) (Math.random() * 100);
                 System.out.println("You tried to steal from a Team Rocket member and got jumped! Serves you right!");
                 Thread.sleep((long) (.5 * User.textSpeed));
@@ -836,26 +870,28 @@ public class Location {
             choice = sc1.nextLine().trim().toUpperCase();
         } while (!choice.equals("N"));
     }
-    public static void visitSchizoJoe(Scanner sc1) throws InterruptedException{
+
+    public static void visitSchizoJoe(Scanner sc1) throws InterruptedException {
         String choice;
-        do{
+        do {
             Sound.playMusicOnLoop("music/rocketopolisTheme.mp3");
             Graphics.printSchizoJoe();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("T")) {
+            if (choice.equals("T")) {
                 NPC.talkTo(NPC.Character.SCHIZO_JOE, sc1);
             }
-            if(choice.equals("W")) {
+            if (choice.equals("W")) {
                 whisperToSchizoJoe(sc1);
             }
-            if(choice.equals("O")) {
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    public static void whisperToSchizoJoe(Scanner sc1) throws InterruptedException{
+
+    public static void whisperToSchizoJoe(Scanner sc1) throws InterruptedException {
         String whisperChoice;
-        do{
+        do {
             Sound.playMusicOnLoop("music/rocketopolisTheme.mp3");
             Graphics.printNPC(NPC.Character.SCHIZO_JOE);
             System.out.println("Whisper to Schizo Joe or [C] to cancel: ");
@@ -867,8 +903,7 @@ public class Location {
                 System.out.println("Yes... yes... that's it... Ode to Joe!");
                 Game.pressEnterToContinue(sc1);
                 enterSchizoGodMode(sc1);
-            }
-            else if (!whisperChoice.equalsIgnoreCase("C")) {
+            } else if (!whisperChoice.equalsIgnoreCase("C")) {
                 Graphics.printNPC(NPC.Character.SCHIZO_JOE);
                 System.out.println("SCHIZO JOE:");
                 System.out.println("Hmm... no... no.");
@@ -876,11 +911,12 @@ public class Location {
             }
         } while (!whisperChoice.equals("C"));
     }
-    public static void enterSchizoGodMode(Scanner sc1) throws InterruptedException{
+
+    public static void enterSchizoGodMode(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
         Sound.playMusicOnLoop("music/odeToJoy.mp3");
         String choice;
-        do{
+        do {
             Graphics.printSchizoJoeAscension();
             choice = sc1.nextLine().trim().toUpperCase();
             if (choice.equals("1")) {
@@ -895,13 +931,14 @@ public class Location {
         } while (!choice.equals("C"));
         Sound.stopAllSounds();
     }
+
     public static void getPkmFromJoe(Scanner sc1) throws InterruptedException {
         String nameChoice;
         int level;
         String choiceShiny;
         boolean shiny;
         String choiceToContinue = "";
-        do{
+        do {
             System.out.println("Tell Arceus the name of the Pokemon you wish to summon:");
             nameChoice = sc1.nextLine().trim().toUpperCase();
             System.out.println("Tell Arceus the level of the Pokemon you wish to summon:");
@@ -929,11 +966,12 @@ public class Location {
             choiceToContinue = sc1.nextLine().trim().toUpperCase();
         } while (choiceToContinue.equals("Y"));
     }
+
     public static void getPokedollarsFromJoe(Scanner sc1) throws InterruptedException {
         String moneyInput;
         long money;
         String choiceToContinue = "";
-        do{
+        do {
             System.out.println("Tell Mr. Mime how many Pokedollars you want:");
             try {
                 moneyInput = sc1.nextLine().trim();
@@ -953,19 +991,21 @@ public class Location {
                 Game.pressEnterToContinue(sc1);
                 continue;
             }
-            System.out.println("Mr. Mime printed " + money + " tainted Pokedollars and put them in your greedy pockets...");
+            System.out.println(
+                    "Mr. Mime printed " + money + " tainted Pokedollars and put them in your greedy pockets...");
             Bag.adjustPokedollarBalance(money);
             Game.pressEnterToContinue(sc1);
             System.out.println("Print more money? (Y/N)");
             choiceToContinue = sc1.nextLine().trim().toUpperCase();
         } while (choiceToContinue.equals("Y"));
     }
-    public static void goToPokemonBlackMarket(Scanner sc1) throws InterruptedException{
+
+    public static void goToPokemonBlackMarket(Scanner sc1) throws InterruptedException {
         String choice;
-        do{
+        do {
             Graphics.printHotDogStand();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("R")){
+            if (choice.equals("R")) {
                 System.out.println("Buy a regular hot dog? It's 3 Pokedollars. (Y/N)");
                 String choiceBuyRegularDog = sc1.nextLine().trim().toUpperCase();
                 if (choiceBuyRegularDog.equals("Y")) {
@@ -973,12 +1013,11 @@ public class Location {
                     Game.pressEnterToContinue(sc1);
                     System.out.println("You just devoured it!");
                     Game.pressEnterToContinue(sc1);
-                }
-                else {
+                } else {
                     continue;
                 }
             }
-            if(choice.equals("B")){
+            if (choice.equals("B")) {
                 System.out.println("Buy a special BIG dog? It's 5 Pokedollars. (Y/N)");
                 String choiceBuyBigDog = sc1.nextLine().trim().toUpperCase();
                 if (choiceBuyBigDog.equals("Y")) {
@@ -988,22 +1027,22 @@ public class Location {
                     Game.pressEnterToContinue(sc1);
                     System.out.println("\nYour party has been restored back to full health!\n");
                     Game.pressEnterToContinue(sc1);
-                }
-                else {
+                } else {
                     continue;
                 }
             }
-            if(choice.equals("S")){
+            if (choice.equals("S")) {
                 askServerAboutSomethingElse(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    public static void askServerAboutSomethingElse(Scanner sc1) throws InterruptedException{
+
+    public static void askServerAboutSomethingElse(Scanner sc1) throws InterruptedException {
         String choice;
-        do{
+        do {
             System.out.println("     Which hot dogs interest you?");
             System.out.println("=========================================");
             System.out.println("[1] See Kanto-original hot dogs");
@@ -1022,6 +1061,7 @@ public class Location {
             }
         } while (!choice.equals("C"));
     }
+
     public static void seeKantoHotDogs(Scanner sc1) throws InterruptedException {
         String pokemonChoice = "";
         do {
@@ -1085,6 +1125,7 @@ public class Location {
             }
         } while (!pokemonChoice.equals("C"));
     }
+
     public static void seeImportedHotDogs(Scanner sc1) throws InterruptedException {
         String pokemonChoice = "";
         do {
@@ -1120,8 +1161,10 @@ public class Location {
             }
         } while (!pokemonChoice.equals("C"));
     }
+
     public static void buyPokemon(String pokemonName, int price, Scanner sc1) throws InterruptedException {
-        Pokemon pokemon = new Pokemon(Species.getSpecies(pokemonName), User.checkLevelCap() - 5, Pokemon.getShinyOdds());
+        Pokemon pokemon = new Pokemon(Species.getSpecies(pokemonName), User.checkLevelCap() - 5,
+                Pokemon.getShinyOdds());
         Graphics.printPokemon(pokemon);
         System.out.println("Are you sure you want to buy " + pokemonName + " for " + price + " Pokedollars? (Y/N)");
         String confirmation = "";
@@ -1136,40 +1179,41 @@ public class Location {
                 System.out.println("You can't afford " + pokemonName + "!");
                 Game.pressEnterToContinue(sc1);
             }
-        }
-        else {
+        } else {
             System.out.println("Oh, you changed your mind?");
             Game.pressEnterToContinue(sc1);
         }
     }
+
     public static void goToTheColosseum(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
             Graphics.printTheColosseum();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterTheColosseum(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void enterTheColosseum(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= "";
+        String choice = "";
         int numTrainersBeaten = 0;
         int startingHighScore = User.recordColosseumTrainersBeaten;
-        do{
+        do {
             Sound.playMusicOnLoop("music/indigoPlateauTheme.mp3");
             Graphics.printInsideOfTheColosseum(numTrainersBeaten);
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("F")){
+            if (choice.equals("F")) {
                 Trainer thisTrainerToBattle = Trainer.buildColosseumTrainer();
-                Pokemon [] partyContainingMembersToPotentiallyProcure = thisTrainerToBattle.cloneParty();
-                if(Encounter.enterTrainerBattle(thisTrainerToBattle, sc1)) {
+                Pokemon[] partyContainingMembersToPotentiallyProcure = thisTrainerToBattle.cloneParty();
+                if (Encounter.enterTrainerBattle(thisTrainerToBattle, sc1)) {
                     numTrainersBeaten++;
                     Bag.earnBP(numTrainersBeaten);
                     if (numTrainersBeaten > User.recordColosseumTrainersBeaten) {
@@ -1181,18 +1225,18 @@ public class Location {
                     healPartyWithDialogueAndSound();
                 }
             }
-            if(choice.equals("S")){
+            if (choice.equals("S")) {
                 seeNurseJoyToHealPokemon(sc1);
             }
-            if(choice.equals("H")){
+            if (choice.equals("H")) {
                 goToHelpDeskInColosseum(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
             if (choice.equals("L")) {
                 String choiceConfirmLeave = "";
-                while(true) {
+                while (true) {
                     System.out.println("Are you sure you want to leave? This will end your current run. (Y/N)");
                     choiceConfirmLeave = sc1.nextLine().trim().toUpperCase();
                     if (choiceConfirmLeave.equals("N")) {
@@ -1211,7 +1255,8 @@ public class Location {
             Game.pressEnterToContinue(sc1);
         }
         rushToNearestPokemonCenterIfFainted();
-    } //letsProc @ 10 wins
+    } // letsProc @ 10 wins
+
     private static void letUserProcureAPkmOfTheirChoice(Pokemon[] party, Scanner sc1) throws InterruptedException {
         int index = -1;
         String choice;
@@ -1219,12 +1264,15 @@ public class Location {
             System.out.println(" WHICH POKEMON DO YOU WANT TO PROCURE?");
             System.out.println("=======================================");
             for (int i = 0; i < party.length; i++) {
-                if (party[i] == null) continue;;
+                if (party[i] == null)
+                    continue;
+                ;
                 System.out.println(" [" + (i + 1) + "] " + party[i].toStringHideHP());
             }
             System.out.println(" [N] None");
             choice = sc1.nextLine().trim().toUpperCase();
-            if (choice.equals("N")) continue;
+            if (choice.equals("N"))
+                continue;
             try {
                 index = Integer.parseInt(choice) - 1;
             } catch (NumberFormatException e) {
@@ -1234,22 +1282,24 @@ public class Location {
         } while ((index < 0 || index >= party.length) && !choice.equals("N"));
         Party.addToParty(party[index].clone(), sc1);
     }
+
     public static void goToHelpDeskInColosseum(Scanner sc1) throws InterruptedException {
         String choice = "";
         do {
             Graphics.printHelpDeskInTheColosseum();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("T")){
+            if (choice.equals("T")) {
                 NPC.talkTo(NPC.Character.RICHIE, sc1);
             }
-            if(choice.equals("G")){
+            if (choice.equals("G")) {
                 Bag.addNote("COLOSSEUM TIPS", sc1);
             }
-            if(choice.equals("R")){
+            if (choice.equals("R")) {
                 redeemPrizeInColosseum(sc1);
             }
-        } while(!Party.checkIfEveryPkmHasFainted() && !choice.equals("L"));
+        } while (!Party.checkIfEveryPkmHasFainted() && !choice.equals("L"));
     }
+
     public static void redeemPrizeInColosseum(Scanner sc1) throws InterruptedException {
         String choice = "";
         do {
@@ -1271,7 +1321,7 @@ public class Location {
                     break;
                 case "2":
                     Bag.adjustPokedollarBalance(5000);
-                    if(Bag.getBP() >= 3) {
+                    if (Bag.getBP() >= 3) {
                         Bag.spendBP(3);
                     } else {
                         System.out.println("Not enough BP");
@@ -1288,11 +1338,12 @@ public class Location {
             }
         } while (!choice.equals("C"));
     }
-    //Vaughan District
-    public static void goToVaughanDistrict(Scanner sc1) throws InterruptedException, ExecutionException{
+
+    // Vaughan District
+    public static void goToVaughanDistrict(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/vaughanDistrictTheme.mp3");
             Graphics.printVaughanDistrict();
             choice = sc1.nextLine().trim().toUpperCase();
@@ -1307,6 +1358,7 @@ public class Location {
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void enterVaughanBank(Scanner sc1) throws InterruptedException {
         String choice = " ";
         while (!choice.trim().equalsIgnoreCase("L")) {
@@ -1335,30 +1387,31 @@ public class Location {
                     long loan = getValidLong(sc1);
                     if (loan > 0 && loan < 50000) {
                         if (Bag.getDebt() > 10000) {
-                            System.out.println("You have too much debt! Pay back some of it before taking out another loan.");
+                            System.out.println(
+                                    "You have too much debt! Pay back some of it before taking out another loan.");
                         } else {
                             Bag.addDebt(loan);
                             Bag.adjustPokedollarBalance(loan);
                             System.out.println("You took out a loan of " + loan + " Pokedollars.");
                         }
-                    }
-                    else if (loan == 0) {
+                    } else if (loan == 0) {
                         break;
-                    }
-                    else {
+                    } else {
                         System.out.println("Invalid loan amount.");
                     }
                     Game.pressEnterToContinue(sc1);
                     break;
                 case "2":
-                    System.out.print("Enter debt to pay off or [0] to cancel (you have " + Bag.getDebt() + " Pokedollars of debt): ");
+                    System.out.print("Enter debt to pay off or [0] to cancel (you have " + Bag.getDebt()
+                            + " Pokedollars of debt): ");
                     long debtToPayOff = getValidLong(sc1);
                     if (debtToPayOff > 0 && debtToPayOff <= Bag.getPokedollars() && Bag.getDebt() > 0) {
                         Bag.addDebt(-debtToPayOff);
                         Bag.spendPokedollarsSilent(debtToPayOff);
-                        System.out.println("You paid off " + debtToPayOff + " Pokedollars of debt! Thanks for being a good citizen!");
+                        System.out.println("You paid off " + debtToPayOff
+                                + " Pokedollars of debt! Thanks for being a good citizen!");
                     } else if (debtToPayOff == 0) {
-                            break;
+                        break;
                     } else {
                         System.out.println("Invalid amount.");
                     }
@@ -1379,13 +1432,15 @@ public class Location {
                     Game.pressEnterToContinue(sc1);
                     break;
                 case "4":
-                    int sellAmount = getValidIntWithPrompt(sc1, "Enter number of gold bars to sell or [0] to cancel (you have " + Bag.getNumGoldBars() + "): ");
+                    int sellAmount = getValidIntWithPrompt(sc1,
+                            "Enter number of gold bars to sell or [0] to cancel (you have " + Bag.getNumGoldBars()
+                                    + "): ");
                     long totalSellValue = sellAmount * (goldPrice - 50);
                     if (sellAmount > 0 && Bag.getNumGoldBars() >= sellAmount) {
                         Bag.addGoldBars(-sellAmount);
                         Bag.adjustPokedollarBalance((int) totalSellValue);
                         System.out.println("You sold " + sellAmount + " gold bars.");
-                        Thread.sleep((long)(1.5 * User.textSpeed));
+                        Thread.sleep((long) (1.5 * User.textSpeed));
                     } else if (sellAmount == 0) {
                         break;
                     } else {
@@ -1404,7 +1459,7 @@ public class Location {
                     } while (!choiceBack.equals("B"));
                     break;
                 case "6":
-                    if(Bag.getPokedollars() < 100) {
+                    if (Bag.getPokedollars() < 100) {
                         System.out.println("You declared bankruptcy!");
                         Game.pressEnterToContinue();
                         System.out.println("Here's a 500 Pokedollar loan to get you back on your feet.");
@@ -1413,9 +1468,9 @@ public class Location {
                         Game.pressEnterToContinue();
                         System.out.println("Please try to be more financially responsible!");
                         Game.pressEnterToContinue();
-                    }
-                    else {
-                        System.out.println("Wait, you have " + Bag.getPokedollars() + " Pokedollars. You're doing just fine.");
+                    } else {
+                        System.out.println(
+                                "Wait, you have " + Bag.getPokedollars() + " Pokedollars. You're doing just fine.");
                         Game.pressEnterToContinue();
                     }
                     break;
@@ -1428,106 +1483,113 @@ public class Location {
             }
         }
     }
+
     public static void goToVaughanGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/vaughanDistrictTheme.mp3");
             Graphics.printVaughanGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.VAUGHAN_DISTRICT_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
-    //City Center
+
+    // City Center
     public static void goToCityCenter(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/celadonTheme.mp3");
             Graphics.printCityCenter();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("P")){
+            if (choice.equals("P")) {
                 enterPokemonCenter(sc1);
             }
-            if(choice.equals("M")) {
+            if (choice.equals("M")) {
                 enterPokemart(sc1);
             }
-            if(choice.equals("G")) {
+            if (choice.equals("G")) {
                 goToCeladonGym(sc1);
             }
-            if(choice.equals("D")) {
+            if (choice.equals("D")) {
                 goToCeladonDepartmentStore(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void goToCeladonGym(Scanner sc1) throws InterruptedException, ExecutionException {
-        String choice= " ";
-        do{
+        String choice = " ";
+        do {
             Sound.playMusicOnLoop("music/celadonTheme.mp3");
             Graphics.printCeladonGymExterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterGym(Trainer.Title.CELADON_GYM_LEADER, sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
+
     public static void goToCeladonDepartmentStore(Scanner sc1) throws InterruptedException {
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Sound.playMusicOnLoop("music/celadonTheme.mp3");
             Graphics.printCeladonDepartmentStore();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("E")){
+            if (choice.equals("E")) {
                 enterCeladonDepartmentStore(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
     }
+
     private static void enterCeladonDepartmentStore(Scanner sc1) throws InterruptedException {
         Sound.stopAllSounds();
-        String choice= "";
-        do{
+        String choice = "";
+        do {
             Graphics.printCeladonDepartmentStoreInterior();
             Sound.playMusicOnLoop("music/boutiqueTheme.mp3");
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("B")){
+            if (choice.equals("B")) {
                 buyItemMenu(sc1);
             }
-            if(choice.equals("S")){
+            if (choice.equals("S")) {
                 buySpecialItemMenu(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
-    //route logic
-    public static void goOnRouteWithInfinite149Enc(Scanner sc1) throws InterruptedException, ExecutionException{
+
+    // route logic
+    public static void goOnRouteWithInfinite149Enc(Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
         while (!Party.checkIfEveryPkmHasFainted()) {
             Sound.playMusicOnLoop("music/earlyRouteTheme.mp3");
             Graphics.printTallGrass();
-            System.out.println("Walk into the tall grass?\n[W] Walk in | [V] View Party | [B] Open Bag | [T] Turn Back");
+            System.out
+                    .println("Walk into the tall grass?\n[W] Walk in | [V] View Party | [B] Open Bag | [T] Turn Back");
             String choiceGrass = sc1.nextLine().trim().toUpperCase();
             if (choiceGrass.equals("W")) {
-                Encounter.enterWildPkmBattle(Encounter.genWildPkmUpTo149(),sc1);
-            } else if (choiceGrass.equals("V")){
+                Encounter.enterWildPkmBattle(Encounter.genWildPkmUpTo149(), sc1);
+            } else if (choiceGrass.equals("V")) {
                 Party.enterPartyMenu(sc1);
-            } else if (choiceGrass.equals("B")){
+            } else if (choiceGrass.equals("B")) {
                 Bag.openBagMenu(sc1);
             } else if (choiceGrass.equals("T")) {
                 System.out.println("You decided not to enter the tall grass.");
@@ -1538,20 +1600,17 @@ public class Location {
         }
         Sound.stopAllSounds();
     }
+
     public static void goOnRoute(int routeNum, Scanner sc1) throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        label:
-        while (!Party.checkIfEveryPkmHasFainted()) {
-            if(routeNum < 4) {
+        label: while (!Party.checkIfEveryPkmHasFainted()) {
+            if (routeNum < 4) {
                 Sound.playMusicOnLoop("music/earlyRouteTheme.mp3");
-            }
-            else if(routeNum < 11) {
+            } else if (routeNum < 11) {
                 Sound.playMusicOnLoop("music/route4Theme.mp3");
-            }
-            else if(routeNum < 24) {
+            } else if (routeNum < 24) {
                 Sound.playMusicOnLoop("music/route11Theme.mp3");
-            }
-            else if(routeNum == 24 || routeNum == 25) {
+            } else if (routeNum == 24 || routeNum == 25) {
                 Sound.playMusicOnLoop("music/route24Theme.mp3");
             }
 
@@ -1559,24 +1618,27 @@ public class Location {
 
             String routeCompletionStatus = "";
             String trainerPrompt = "";
-            if(User.trainersBeatenOnARoute.get(routeNum) == 0) {
+            if (User.trainersBeatenOnARoute.get(routeNum) == 0) {
                 routeCompletionStatus = "Battle more trainers to progress along the route!";
                 trainerPrompt = "Battle first trainer";
-            }
-            else if(User.trainersBeatenOnARoute.get(routeNum) < 3) {
+            } else if (User.trainersBeatenOnARoute.get(routeNum) < 3) {
                 routeCompletionStatus = "Battle more trainers to progress along the route!";
                 trainerPrompt = "Battle next trainer";
-            }
-            else {
+            } else {
                 routeCompletionStatus = "You've conquered this route!";
                 trainerPrompt = "Battle a trainer";
-                //unlockAreaOrRoute
+                // unlockAreaOrRoute
             }
-            System.out.println("=========================================================================================");
-            System.out.println(" ROUTE " + routeNum + " | " + routeCompletionStatus + " | Trainers beaten: " + User.trainersBeatenOnARoute.get(routeNum));
-            System.out.println("=========================================================================================");
-            System.out.println("[W] Go into tall grass | [F] " + trainerPrompt + " | [I] Info | | [O] Options | [L] Leave");
-            System.out.println("-----------------------------------------------------------------------------------------");
+            System.out.println(
+                    "=========================================================================================");
+            System.out.println(" ROUTE " + routeNum + " | " + routeCompletionStatus + " | Trainers beaten: "
+                    + User.trainersBeatenOnARoute.get(routeNum));
+            System.out.println(
+                    "=========================================================================================");
+            System.out.println(
+                    "[W] Go into tall grass | [F] " + trainerPrompt + " | [I] Info | | [O] Options | [L] Leave");
+            System.out.println(
+                    "-----------------------------------------------------------------------------------------");
 
             String choiceGrass = sc1.nextLine().trim().toUpperCase();
             switch (choiceGrass) {
@@ -1586,7 +1648,8 @@ public class Location {
                     Encounter.enterWildPkmBattle(Encounter.getPkmInArea("Route " + routeNum), sc1);
                     break;
                 case "F":
-                    boolean playerBeatATrainer = Encounter.enterTrainerBattle(Encounter.getTrainerInArea("Route " + routeNum), sc1);
+                    boolean playerBeatATrainer = Encounter
+                            .enterTrainerBattle(Encounter.getTrainerInArea("Route " + routeNum), sc1);
                     if (playerBeatATrainer) {
                         User.trainersBeatenOnARoute.put(routeNum, User.trainersBeatenOnARoute.get(routeNum) + 1);
                     }
@@ -1606,6 +1669,7 @@ public class Location {
         }
         Sound.stopAllSounds();
     }
+
     private static void checkRouteInfo(int routeNum, Scanner sc1) {
         Map<String, Integer> routeInfoMap = Encounter.getPkmsInArea("Route " + routeNum);
         double totalEncounterPoints = routeInfoMap.values().stream().mapToInt(Integer::intValue).sum();
@@ -1617,15 +1681,14 @@ public class Location {
                 .orElse(0);
 
         final int PERCENTAGE_COLUMN_WIDTH = 8; // " 100.00%".length()
-        if(User.trainersBeatenOnARoute.get(routeNum) >= 3) {
+        if (User.trainersBeatenOnARoute.get(routeNum) >= 3) {
             System.out.println("   Encounter Rates");
             String divider = "=".repeat(6 + maxNameLength + PERCENTAGE_COLUMN_WIDTH);
             System.out.println(divider);
             routeInfoMap.entrySet().stream()
                     .sorted((a, b) -> Double.compare(
                             (100 * b.getValue() / totalEncounterPoints),
-                            (100 * a.getValue() / totalEncounterPoints)
-                    ))
+                            (100 * a.getValue() / totalEncounterPoints)))
                     .forEach(entry -> {
                         String pkmName = entry.getKey();
                         double percentage = (100 * entry.getValue()) / totalEncounterPoints;
@@ -1645,32 +1708,34 @@ public class Location {
 
         Game.pressEnterToContinue(sc1);
     }
-    //general POI logic
-    public static void enterPokemonCenter(Scanner sc1) throws InterruptedException{
+
+    // general POI logic
+    public static void enterPokemonCenter(Scanner sc1) throws InterruptedException {
         String choice;
         Sound.stopAllSounds();
         Sound.playMusicOnLoop("music/pokemonCenterTheme.mp3");
-        do{
+        do {
             Graphics.printPokemonCenterInterior();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("B")){
+            if (choice.equals("B")) {
                 Party.enterPartyMenu(sc1);
             }
-            if(choice.equals("H")){
+            if (choice.equals("H")) {
                 seeNurseJoyToHealPokemon(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
         } while (!choice.equals("L"));
         Sound.stopAllSounds();
     }
+
     public static void seeNurseJoyToHealPokemon(Scanner sc1) throws InterruptedException {
         String choice;
-        do{
+        do {
             Graphics.printNurseJoy();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("Y")){
+            if (choice.equals("Y")) {
                 Party.healParty();
                 Sound.playSoundOnce("music/heal.mp3");
                 System.out.println("Healing...");
@@ -1679,11 +1744,12 @@ public class Location {
                 Game.pressEnterToContinue(sc1);
                 break;
             }
-            if(choice.equals("N")){
+            if (choice.equals("N")) {
                 break;
             }
         } while (true);
     }
+
     public static void enterPokemart(Scanner sc1) throws InterruptedException {
         while (true) {
             Graphics.printPokemart();
@@ -1701,6 +1767,7 @@ public class Location {
             }
         }
     }
+
     private static void buyItemMenu(Scanner sc1) throws InterruptedException {
         Graphics.printBuyItemsDesk();
         System.out.println("     What items interest you?");
@@ -1746,6 +1813,7 @@ public class Location {
                 Game.pressEnterToContinue(sc1);
         }
     }
+
     private static void buyItem(String item, int price, Scanner sc1) throws InterruptedException {
         System.out.println("How many " + item + "s would you like to buy?");
         System.out.print("Enter the amount or [0] to cancel: ");
@@ -1754,7 +1822,7 @@ public class Location {
             int amount = Integer.parseInt(sc1.nextLine().trim());
             if (amount > 0) {
                 int totalCost = price * amount;
-                if (Bag.getPokedollars() >= totalCost) {  // Check AFTER getting quantity
+                if (Bag.getPokedollars() >= totalCost) { // Check AFTER getting quantity
                     Bag.spendPokedollars(totalCost);
                     Bag.addItem(item, amount);
                     System.out.println("You bought " + amount + " " + item + "(s).");
@@ -1762,12 +1830,10 @@ public class Location {
                     System.out.println("You can't afford " + amount + " " + item + "(s).");
                 }
                 Game.pressEnterToContinue(sc1);
-            }
-            else if (amount == 0) {
+            } else if (amount == 0) {
                 System.out.println("Oh, you changed your mind?");
                 Game.pressEnterToContinue(sc1);
-            }
-            else {
+            } else {
                 System.out.println("Invalid amount. Please enter a positive number.");
                 Game.pressEnterToContinue(sc1);
             }
@@ -1776,6 +1842,7 @@ public class Location {
             Game.pressEnterToContinue(sc1);
         }
     }
+
     private static void buySpecialItemMenu(Scanner sc1) throws InterruptedException {
         Graphics.printBuyItemsDesk();
         System.out.println("             Special Items");
@@ -1813,6 +1880,7 @@ public class Location {
                 Game.pressEnterToContinue(sc1);
         }
     }
+
     private static void buySpecialItem(String item, int price, Scanner sc1) throws InterruptedException {
         System.out.println("How many " + item + "s would you like to buy?");
         System.out.print("Enter the amount or [0] to cancel: ");
@@ -1830,7 +1898,7 @@ public class Location {
                     }
                 }
 
-                if (Bag.getPokedollars() >= totalCost) {  // Check AFTER getting quantity
+                if (Bag.getPokedollars() >= totalCost) { // Check AFTER getting quantity
                     Bag.spendPokedollars(totalCost);
                     Bag.addSpecialItem(item, amount);
                     System.out.println("You received " + amount + " " + item + "(s).");
@@ -1838,12 +1906,10 @@ public class Location {
                     System.out.println("You don't have enough Pokedollars for that!");
                 }
                 Game.pressEnterToContinue(sc1);
-            }
-            else if (amount == 0) {
+            } else if (amount == 0) {
                 System.out.println("Changed your mind?");
                 Game.pressEnterToContinue(sc1);
-            }
-            else {
+            } else {
                 System.out.println("Positive quantities only!");
                 Game.pressEnterToContinue(sc1);
             }
@@ -1852,34 +1918,37 @@ public class Location {
             Game.pressEnterToContinue(sc1);
         }
     }
-    public static void enterGym(Trainer.Title gymLeadearTitle, Scanner sc1) throws InterruptedException, ExecutionException {
+
+    public static void enterGym(Trainer.Title gymLeadearTitle, Scanner sc1)
+            throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
         String choice = "";
         do {
             Graphics.printGymInterior(gymLeadearTitle);
             Sound.playMusicOnLoop("music/gymTheme.mp3");
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("F")){
+            if (choice.equals("F")) {
                 Trainer gymLeader = buildGymLeader(gymLeadearTitle);
                 Encounter.enterTrainerBattle(gymLeader, sc1);
             }
-            if(choice.equals("T")){
+            if (choice.equals("T")) {
                 talkToGymLeader(gymLeadearTitle, sc1);
             }
-            if(choice.equals("C")){
+            if (choice.equals("C")) {
                 Encounter.enterWildPkmBattle(new Pokemon("Chansey", 5), sc1);
                 Party.setPartyLvlToLvlCap();
             }
-            if(choice.equals("H")){
+            if (choice.equals("H")) {
                 goToHelpDesk(sc1);
             }
-            if(choice.equals("O")){
+            if (choice.equals("O")) {
                 openOptionsMenu(sc1);
             }
-        } while(!Party.checkIfEveryPkmHasFainted() && !choice.equals("L"));
+        } while (!Party.checkIfEveryPkmHasFainted() && !choice.equals("L"));
         rushToNearestPokemonCenterIfFainted();
         Sound.stopAllSounds();
-    } //WIP
+    } // WIP
+
     public static Trainer buildGymLeader(Trainer.Title gymLeaderTitle) {
         Species.Type typeSpeciality = Species.Type.NONE;
         switch (gymLeaderTitle) {
@@ -1890,12 +1959,16 @@ public class Location {
             case FUCHSIA_GYM_LEADER -> typeSpeciality = Species.Type.POISON;
             case SAFFRON_GYM_LEADER -> typeSpeciality = Species.Type.PSYCHIC;
             case VERMILLION_GYM_LEADER -> typeSpeciality = Species.Type.ELECTRIC;
+            default -> {
+            }
         }
-        if (typeSpeciality == Species.Type.NONE) return new Trainer(gymLeaderTitle);
+        if (typeSpeciality == Species.Type.NONE)
+            return new Trainer(gymLeaderTitle);
         else {
-            return  new Trainer(gymLeaderTitle, Trainer.getProcedurallyMadeParty(60, typeSpeciality));
+            return new Trainer(gymLeaderTitle, Trainer.getProcedurallyMadeParty(60, typeSpeciality));
         }
     }
+
     public static void talkToGymLeader(Trainer.Title gymLeaderTitle, Scanner sc1) throws InterruptedException {
         NPC.Character whomToTalkTo = null;
         switch (gymLeaderTitle) {
@@ -1911,19 +1984,21 @@ public class Location {
         }
         NPC.talkTo(whomToTalkTo, sc1);
     }
+
     public static void goToHelpDesk(Scanner sc1) throws InterruptedException {
         String choice = "";
         do {
             Graphics.printHelpDesk();
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("T")){
+            if (choice.equals("T")) {
                 NPC.talkTo(NPC.Character.RICHIE, sc1);
             }
-            if(choice.equals("G")){
+            if (choice.equals("G")) {
                 Bag.addNote("GYM TIPS", sc1);
             }
-        } while(!Party.checkIfEveryPkmHasFainted() && !choice.equals("L"));
+        } while (!Party.checkIfEveryPkmHasFainted() && !choice.equals("L"));
     }
+
     private static void buySpecialItemWithBP(String item, int price, Scanner sc1) throws InterruptedException {
         System.out.println("How many " + item + "s would you like to buy?");
         System.out.print("Enter the amount or [0] to cancel: ");
@@ -1932,7 +2007,7 @@ public class Location {
             int amount = Integer.parseInt(sc1.nextLine().trim());
             if (amount > 0) {
                 int totalCost = price * amount;
-                if (Bag.getBP() >= totalCost) {  // Check AFTER getting quantity
+                if (Bag.getBP() >= totalCost) { // Check AFTER getting quantity
                     Bag.spendBP(totalCost);
                     Bag.addSpecialItem(item, amount);
                     System.out.println("You received " + amount + " " + item + "(s).");
@@ -1940,12 +2015,10 @@ public class Location {
                     System.out.println("You don't have enough BP for that!");
                 }
                 Game.pressEnterToContinue(sc1);
-            }
-            else if (amount == 0) {
+            } else if (amount == 0) {
                 System.out.println("Changed your mind?");
                 Game.pressEnterToContinue(sc1);
-            }
-            else {
+            } else {
                 System.out.println("Positive quantities only!");
                 Game.pressEnterToContinue(sc1);
             }
@@ -1954,10 +2027,10 @@ public class Location {
             Game.pressEnterToContinue(sc1);
         }
     }
-    //options logic
+
+    // options logic
     public static void openOptionsMenu(Scanner sc1) throws InterruptedException {
-        label:
-        while (true) {
+        label: while (true) {
             System.out.println("                                  Options");
             System.out.println("============================================================================");
             System.out.println("[V] Party | [B] Bag | [P] Pokedex | [S] Save | [M] More Options | [R] Return");
@@ -1987,13 +2060,16 @@ public class Location {
             }
         }
     }
+
     public static void openMoreOptionsMenu(Scanner sc1) {
-        label:
-        while (true) {
+        label: while (true) {
             System.out.println("                                       More Options");
-            System.out.println("=========================================================================================");
-            System.out.println(" [T] Trainer Card | [S] Change Text Speed | [H] Hints | [D] Change Difficulty | [B] Back ");
-            System.out.println("-----------------------------------------------------------------------------------------");
+            System.out.println(
+                    "=========================================================================================");
+            System.out.println(
+                    " [T] Trainer Card | [S] Change Text Speed | [H] Hints | [D] Change Difficulty | [B] Back ");
+            System.out.println(
+                    "-----------------------------------------------------------------------------------------");
             String choicePlayMenu = sc1.nextLine().trim().toUpperCase();
             switch (choicePlayMenu) {
                 case "T":
@@ -2016,9 +2092,9 @@ public class Location {
             }
         }
     }
+
     public static void viewTrainerCard(Scanner sc1) {
-        label:
-        while (true) {
+        label: while (true) {
             Graphics.printPlayer(true);
             System.out.println("==================================================================");
             System.out.println("|                    [V] View Badges | [B] Back                  |");
@@ -2036,9 +2112,10 @@ public class Location {
             }
         }
     }
+
     public static void viewBadges(Scanner sc1) {
         List<Trainer.Title> listOfBadges = new ArrayList<>();
-        for(Map.Entry<Trainer.Title, Boolean> title : User.badgesEarned.entrySet()) {
+        for (Map.Entry<Trainer.Title, Boolean> title : User.badgesEarned.entrySet()) {
             if (title.getValue()) {
                 listOfBadges.add(title.getKey());
             }
@@ -2047,11 +2124,12 @@ public class Location {
             System.out.println();
             System.out.println(" Badges Collected (" + listOfBadges.size() + "/10)");
             System.out.println("==========================");
-            if(listOfBadges.isEmpty()) System.out.println("   You have no badges!");
+            if (listOfBadges.isEmpty())
+                System.out.println("   You have no badges!");
             int i = 0;
             for (Trainer.Title badge : listOfBadges) {
                 i++;
-                System.out.printf("| %2d. %-19s|%n", i, listOfBadges.get(i-1).getBadgeName());
+                System.out.printf("| %2d. %-19s|%n", i, listOfBadges.get(i - 1).getBadgeName());
             }
             String totalBadgeStr = (listOfBadges.size() > 1) ? "-" + listOfBadges.size() : "";
             System.out.println("================================");
@@ -2061,8 +2139,7 @@ public class Location {
             String choice = sc1.nextLine().trim().toUpperCase();
             if (choice.equals("B")) {
                 break;
-            }
-            else {
+            } else {
                 try {
                     int badgeNum = Integer.parseInt(choice);
                     Trainer.Title badge = listOfBadges.get(badgeNum - 1);
@@ -2091,15 +2168,15 @@ public class Location {
             choice = sc1.nextLine().trim().toUpperCase();
             if (choice.equals("O")) {
                 openOptionsMenu(sc1);
-            }
-            else if (!choice.isEmpty()) {
+            } else if (!choice.isEmpty()) {
                 System.out.println("Invalid input.\n");
                 Thread.sleep(User.textSpeed);
             }
         } while (!choice.isEmpty());
         Sound.click();
     }
-    //helpers
+
+    // helpers
     public static int getValidInt(Scanner sc1) {
         while (true) {
             try {
@@ -2109,6 +2186,7 @@ public class Location {
             }
         }
     }
+
     public static long getValidLong(Scanner sc1) {
         while (true) {
             try {
@@ -2118,6 +2196,7 @@ public class Location {
             }
         }
     }
+
     public static int getValidIntWithPrompt(Scanner sc, String prompt) {
         while (true) {
             try {
@@ -2134,7 +2213,8 @@ public class Location {
             }
         }
     }
-    public static void healPartyWithDialogueAndSound() throws InterruptedException{
+
+    public static void healPartyWithDialogueAndSound() throws InterruptedException {
         Party.healParty();
         Sound.playSoundOnce("music/heal.mp3");
         System.out.println("Healing your party...");
