@@ -67,8 +67,14 @@ public class Location {
             try {
                 int routeNumber = Integer.parseInt(choiceMap);
                 if (routeNumber >= 1 && routeNumber <= 25) {
-                    goOnRoute(routeNumber, sc1);
-                    continue;
+                    if (User.routesReached.getOrDefault(routeNumber, false)) {
+                        goOnRoute(routeNumber, sc1);
+                        continue;
+                    } else {
+                        System.out.println("You haven't unlocked this route yet!");
+                        Thread.sleep(User.textSpeed);
+                        continue;
+                    }
                 } else {
                     System.out.println("Invalid route! Please enter a number between 1 and 25.");
                     Thread.sleep(User.textSpeed);
@@ -83,40 +89,76 @@ public class Location {
                     goToPalletTown(sc1);
                     break;
                 case "V":
-                    goToViridianCity(sc1);
+                    if (User.areasReached.getOrDefault(Area.VIRIDIAN_CITY, false))
+                        goToViridianCity(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "W":
-                    goToPewterCity(sc1);
+                    if (User.areasReached.getOrDefault(Area.PEWTER_CITY, false))
+                        goToPewterCity(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "C":
-                    goToCeruleanCity(sc1);
+                    if (User.areasReached.getOrDefault(Area.CERULEAN_CITY, false))
+                        goToCeruleanCity(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "M":
-                    goToVermillionCity(sc1);
+                    if (User.areasReached.getOrDefault(Area.VERMILION_CITY, false))
+                        goToVermillionCity(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "L":
-                    goToLavenderTown(sc1);
+                    if (User.areasReached.getOrDefault(Area.LAVENDER_TOWN, false))
+                        goToLavenderTown(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "S":
-                    goToSaffronCity(sc1);
+                    if (User.areasReached.getOrDefault(Area.SAFFRON_CITY, false))
+                        goToSaffronCity(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "F":
-                    goToFuchsiaCity(sc1);
+                    if (User.areasReached.getOrDefault(Area.FUCHSIA_CITY, false))
+                        goToFuchsiaCity(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "I":
-                    goToCinnabarIsland(sc1);
+                    if (User.areasReached.getOrDefault(Area.CINNABAR_ISLAND, false))
+                        goToCinnabarIsland(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "T":
-                    goToIndigoPlateau(sc1);
+                    if (User.areasReached.getOrDefault(Area.INDIGO_PLATEAU, false))
+                        goToIndigoPlateau(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "R":
-                    goToRocketopolis(sc1);
+                    if (User.areasReached.getOrDefault(Area.ROCKETOPOLIS, false))
+                        goToRocketopolis(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "D":
-                    goToCityCenter(sc1);
+                    if (User.areasReached.getOrDefault(Area.CITY_CENTER, false))
+                        goToCityCenter(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "G":
-                    goToVaughanDistrict(sc1);
+                    if (User.areasReached.getOrDefault(Area.VAUGHAN_DISTRICT, false))
+                        goToVaughanDistrict(sc1);
+                    else
+                        lockedMessage();
                     break;
                 case "B":
                     break label;
@@ -128,6 +170,11 @@ public class Location {
         }
         Sound.stopAllSounds();
         rushToNearestPokemonCenterIfFainted();
+    }
+
+    private static void lockedMessage() throws InterruptedException {
+        System.out.println("You haven't unlocked this area yet!");
+        Thread.sleep(User.textSpeed);
     }
 
     public static void rushToNearestPokemonCenterIfFainted() throws InterruptedException {

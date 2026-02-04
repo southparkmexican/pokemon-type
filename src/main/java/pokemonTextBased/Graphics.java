@@ -6907,52 +6907,51 @@ public class Graphics {
                                 + "⠼⠀");
                 System.out.println(R + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀" + rc.apply(24) + "24" + R
                                 + "⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠶⡀");
-                System.out.println("⠀⠀⠀⢠⡶⠶⠶⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⠒⠒⠒⠒⠒⠒⡒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⢺⣶⠶⡶⢶⡗⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⢲⠀⠀⠀⠈");
+                System.out.println("⠀⠀⠀⢠⡶⠶⠶⣶⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢐⠒⠒⠒⠒⠒⠒⡒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⢺⣶⠶⡶⢶⡗⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⢲⠀⠀⠀⠈");
                 System.out.println("⠀⠀⠀⢸" + ac.apply(Location.Area.INDIGO_PLATEAU) + "[T]" + R
-                                + "⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⣾*⡷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" + rc.apply(4) + "4" + R + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣟"
+                                + "⣿⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⣾*⡷⠀⠀⠀⠀⠀" + rc.apply(4) + "4" + R + "⠀⠀⠀⠀⠀⠀⠀⢸⣟"
                                 + ac.apply(Location.Area.CERULEAN_CITY) + "[C]" + R + "⠿⡇⠀⠀⠀⠀⠀⠀" + rc.apply(9) + "9" + R
-                                + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀");
-                System.out.println("⠀⠀⠀⠸⠷⠿⠷⠿⡇⠀⠀⠀⢠⣤⣤⣤⣤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠾⠀⠀⠀⠀⣤⣬⣭⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣼⠷⠿⠿⠿⣧⣀⢀⣀⣀⣀⣀⣀⣀⣀⣀⠄⣠⡄⠀⠀⠀⢸⠀⠀⠀⠀");
-                System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⣹" + ac.apply(Location.Area.PEWTER_CITY) + "[W]" + R + "⣿⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀"
-                                + rc.apply(3) + "3" + R
-                                + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⣶⣿⣶⢸⠀⠀⠀⠀");
+                                + "⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⠸⠷⠿⠷⠿⡇⠀⠀⠀⢠⣤⣤⣤⣤⠤⠤⠤⠤⠤⠤⠤⠤⠾⠀⠀⠀⠀⣤⣬⣭⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣤⣼⠷⠿⠿⠿⣧⣀⢀⣀⣀⣀⣀⣀⣀⣀⣀⠄⣠⡄⠀⠀⠀⢸⠀⠀⠀⠀");
+                System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⣹" + ac.apply(Location.Area.PEWTER_CITY) + "[W]" + R + "⣿⠀⠀⠀⠀⠀⠀"
+                                + rc.apply(3) + "3" + R + "  ⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⣿⣿⡇⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⣶⣿⣶⢸⠀⠀⠀⠀");
                 System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⣿⣼⣿⣭⣿⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⡃⠀⠀⠀⠀⠀⣿" + ac.apply(Location.Area.ROCKETOPOLIS)
                                 + "[R]" + R + "⣿⡇⠀⠀⠀⠀⠀ ⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠈*⠋⢸⠀⠀⠀⠀");
-                System.out.println("⠀⠀⠀⢸⢠*⣦⠀⡇⠀⠀⠀⡇⢠⣶⣤⠘⡇⠀⠀⠀⠀⠀⠀⠀⠀     ⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⠀⠀ ⠀⠀⠀⢸⠀" + rc.apply(5) + "5" + R
-                                + "⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇ " + rc.apply(10) + "10" + R + "⢸" + B + "⠀⠀⣀⢈" + R);
+                System.out.println("⠀⠀⠀⢸⢠*⣦⠀⡇⠀⠀⠀⡇⢠⣶⣤⠘⡇⠀⠀⠀⠀⠀⠀⠀⠀     ⠀⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⠀⢸⠀" + rc.apply(5) + "5" + R
+                                + "⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇ " + rc.apply(10) + "10" + R + "⢸⠀⣀⢈" + R);
                 System.out.println("⠀⠀⠀⢸⠘⠻⠟⠀⡇⠀⠀⠀⡇⠘*⠟⢰⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢸" + B + "⣠⣾⣽⡄"
                                 + R);
                 System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀ ⠀⢸ ⠀⠀⠀⡏⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿⣿⣛⣿⣿⠉⠉⠉⠉⠉⠉⠉⠉⣿⣿⣿⣿⡏⣿⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⣿⣿⣿⣟⣿⣭" + B + "⣳⣼⠀"
                                 + R);
                 System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀ ⠀⢸ ⠀⠀⠀⡇⠀⠀⠀⠀⠀" + rc.apply(16) + "16" + R + "⠀⠀⠀⠀⠀⢸⣿"
-                                + ac.apply(Location.Area.CITY_CENTER) + "[D]" + R + "⣿⠀⠀⠀⠀" + rc.apply(7) + "7" + R
-                                + "⠀⠀⠀⣿⡿" + ac.apply(Location.Area.SAFFRON_CITY) + "[S]" + R + "⣿⠀⠀⠀⠀⠀⠀" + rc.apply(8)
-                                + "8" + R
-                                + "⠀⠀⠀⠀⠀⣽⣿" + ac.apply(Location.Area.LAVENDER_TOWN) + "[L]" + R + "⣿" + B + "⣁⣜⣹⡀"
+                                + ac.apply(Location.Area.CITY_CENTER) + "[D]" + R + "⣿⠀⠀⠀" + rc.apply(7) + "7" + R
+                                + "⠀⠀⠀⣿⡿" + ac.apply(Location.Area.SAFFRON_CITY) + "[S]" + R + "⣿⠀⠀⠀⠀⠀" + rc.apply(8)
+                                + "8" + R + "⠀⠀⠀⠀⠀⣽⣿" + ac.apply(Location.Area.LAVENDER_TOWN) + "[L]" + R + "⣿" + B
+                                + "⣁⣜⣹⡀"
                                 + R);
                 System.out.println("⠀⠀⠀⢸⠀" + rc.apply(23) + "23" + R
-                                + "⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⢰⠖⠒⠒⠒⠒⠒⠒⠚⠛⠛⣿⠛⠒⠒⠒⠒⠒⠒⠒⠒⢾⠛⠛⠛⠛⡷⠖⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⡟⠛⠛⠛⢛" + B + "⣛⣯⣹⢁" + R);
+                                + "⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⢰⠖⠒⠒⠒⠒⠒⠒⠚⠛⠛⣿⠛⠒⠒⠒⠒⠒⠒⠒⠒⠒⢾⠛⠛⠛⠛⡷⠖⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⠒⡟⠛⠛⠛⢛" + B + "⣛⣯⣹⢁" + R);
                 System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀" + rc.apply(2) + "2" + R
                                 + "⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⢸⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣿⣿⣿⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢰" + B + "⠋⡽⢿⠚" + R);
                 System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⢸⠇⠀⠀⣀⣀⠀⠀⠀⠀⠀⣿" + ac.apply(Location.Area.VAUGHAN_DISTRICT)
                                 + "[G]" + R + "⣿⣿⣿⣿⣿⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢸" + B + "⣿⣟⣻⠃" + R);
-                System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸ ⠀⠀⠀⡇⠀⠀⠀⢸⡄⣠⡼⠏⠙⢳⣄⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⢸⠀ " + rc.apply(6) + "6" + R
-                                + " ⠀⡇⠀⠀⠀⠀⠀⠀⠀" + "⠀⠀⠀⠀⡇⠀" + rc.apply(12) + "12" + R + " ⢨" + B + "⠟⡻⢿⠀" + R);
+                System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⡇⠀⠀⠀⢸ ⠀⠀⠀⡇⠀⠀⠀⢸⡄⣠⡼⠏⠙⢳⣄⠀⠀⠀⠀⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⢸⠀" + rc.apply(6) + "6" + R
+                                + "⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀" + "⠀⠀⠀⠀⠀⡇⠀" + rc.apply(12) + "12" + R + "⢨" + B + "⠟⡻⢿⠀" + R);
                 System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀⣧⣤⣤⣤⣄⣀⣀⣀⣸ ⠀⠀⠀⡇⠀⠀⠀⢸⣿⡷⢾⠦⣶⣿⠚⣷⣤⣤⣤⣤⣤⡀⠀⣿⣿⠀⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢸" + B + "⣶⡷⢺⠆"
                                 + R);
                 System.out.println("⠀⠀⠀⢸⠀⠀⠀   ⠀⠀⣿" + ac.apply(Location.Area.VIRIDIAN_CITY) + "[V]" + R + "⣿⠀⠀⠀⠀⡇⠀"
-                                + rc.apply(17) + "17" + R + " ⢸⡯⣽⣯⠼⠿⢩⣿⡥⠿⠯⣽⡫⠽⠷⢦⡀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢈" + B
+                                + rc.apply(17) + "17" + R + " ⢸⡯⣽⣯⠼⠿⢩⣿⡥⠿⠯⣽⡫⠽⠷⢦⡀⠀⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢈" + B
                                 + "⡧⢽⢾⠤" + R + "                 Select");
                 System.out.println("⠀⠀⠀⢸⠀⠀⠀⠀" + rc.apply(22) + "22" + R
                                 + "⠀⠀⣿⣘⣓⣓⣿⠀⠀⠀⠀⡇⠀⠀⠀⢸⣴⣧⣶⣄⣤⣸⢼⣧⣠⣼⡧⣷⣄⣤⣺⢿⣦⡀⠀⠀⠀⢸⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢸" + B + "⣦⡯⠜⠀" + R
-                                + "  =====================================");
+                                + " =====================================");
                 System.out.println("⠀" + B + "⢀⣠⣞⣿" + R + "⡛⠋⠉⠉⠈⠉⠉⡏⠉⠉⠉⢹ ⠀⠀⠀⡇⠀⠀⠀⢸⡏⠉⠉⠙" + B + "⣯⢿⣶⣃⣼⣿⣷⣞⣸⣯⣿⣶⣋⡷" + R
                                 + "⠀⠀⠀⢸⣿⣿⣿⣿⡏⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠁⠀⠀⠀" + B + "⠨⣿⣷⣤⠀" + G
                                 + " [P] Pallet Town" + R);
                 System.out.println("⠠⣾⣇⠀⡤⣿⣦⡀⠀⠀⠀⠀⠃⠀⠀⠀⠸ ⠀⠀⠀⡇⠀⠀⠀⢸⡇⠀⠀⠀⣥⢴⣹⣏⢉⣤⣏⣯⡉⡡⢼⣹⣍⣷⠀⠀⠀⢸⡇"
                                 + ac.apply(Location.Area.VERMILION_CITY) + "[M]" + R + "⢿⡇⠀⠀⠀⠀⠀" + rc.apply(11) + "11"
                                 + R + "⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸" + B + "⣡⡞⠀" + ac.apply(Location.Area.VIRIDIAN_CITY)
-                                + "  [V] Viridian City" + R);
+                                + " [V] Viridian City" + R);
                 System.out.println("⢸⢧⠟⣭⣿⣧⡽⢻⡆⠀⠀⠀⡇⠀" + rc.apply(1) + "1" + R
                                 + "⠀⢰⠀⠀⠀⠀⡇⠀⠀⠀⢸⠃⠀⢀⣴⣿⣿⣬⠏⣽⣿⢧⡽⢭⣟⣿⣬⠏⢿⡄⠀⠀⠈⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⠉⡆⠀⠀⠀⢸" + B + "⠋⠀⠀⠀"
                                 + ac.apply(Location.Area.PEWTER_CITY) + " [W] Pewter City" + R);
@@ -6960,9 +6959,9 @@ public class Graphics {
                                 + ac.apply(Location.Area.CERULEAN_CITY) + " [C] Cerulean City" + R);
                 System.out.println("⢸⣋⡿⣺⣿⣏⣻⢃⡇⠀⠀⠀⢦⣤⣤⣤⣼ ⠀⠀⢀⣇⣠|⣤⣸⣿⣟⣹⢃⣾⣿⣙⡟⣺⣿⣏⣻⢑⡿⣿⣙⡟⣺⢿⣋⡛⢷⠀⠀⠀⠀⠠⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠤⠴⠇⠀⠀⠀⢸" + B + "⡿⣏⣹⠃"
                                 + ac.apply(Location.Area.VERMILION_CITY) + " [M] Vermillion City" + R);
-                System.out.println("⢠⣾⡖⠛⠋⡾⣷⠺⡇⠀⠀⠀⣻" + ac.apply(Location.Area.POWER_PLANT) + "[P]" + R
+                System.out.println("⢠⣾⡖⠛⠋⡾⣷⠺⡇⠀⠀⠀⣻" + G + "[P]" + R
                                 + "⣿⠀⣠⣴⠛⠛⢙|⡗⠛⠃⡿⠳⠚⠛⢱⢿⡖⠛⢓⡾⡷⠚⠛⢸⢻⠒⠛⢳⠾⡖⢻⠀⠀⠀⠀⡇⠀⠀⠀⠀⠀⠀" + rc.apply(13) + "13" + R + "⠀⠀⠀⠀⠀⠀⠀⠀"
-                                + B + "⢠⠗⡺⢿⠐ " + ac.apply(Location.Area.LAVENDER_TOWN) + " [L] Lavender Town" + R);
+                                + B + "⢠⠗⡺⢿⠐ " + ac.apply(Location.Area.LAVENDER_TOWN) + "[L] Lavender Town" + R);
                 System.out.println("⢸⡟⣷⢶⣮⡟⢿⠖⡇⠀⠀⠀⣻⣼⣭⣭⣿⡶⣿⢻⡗⣶⣝|⣳⢦⣯⡗⢻⠶⣶⣽⠻⡷⢦⣯⡟⢿⢲⣶⣹⣻⣓⣖⣿⣟⣷⣺⠀⠀⠀⠀⡇⠀⠀⠀⣀⣀⣀⣀⣀⣀⣀⣀⣀⡀⢀⣀⣀⢸" + B + "⣿⡿⢻⠂"
                                 + ac.apply(Location.Area.SAFFRON_CITY) + " [S] Saffron City" + R);
                 System.out.println("⢐⣽⡥⠯⠗⣿⣯⠼⠿⢦⡀⠀⡇⠀|⠀⠀⢈⡷⣮⣯⠬⠿|⣿⡧⠿⠗⣮⢯⠼⠿⢳⣿⡥⠿⠷⣽⡿⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡇⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀⠀⠀" + B + "⣿⠶⡿⡭⠽⠷⢪⢯⠠"
@@ -6973,9 +6972,9 @@ public class Graphics {
                 System.out.println("⠘⣳⡋⢶⡾⣷⢞⡰⣾⣿⣶⡃ " + rc.apply(21) + "21" + R
                                 + " ⢶⣾⣟⣾⠱⢶⣽|⣟⣶⣮⣗⣞⣰⠁⠉⠉⠉⠉⠉⠉⠉⢸⡿⣿⢿⣿⡇⠉⠉⠉⠉⠉⠉⠉⠉ ⠀⠀⠀⢸⠀⠀⠀⠀⠀⠀" + B + "⢀⣴⢷⣿⣷⡞⠰⣮⣿⢾⠀"
                                 + ac.apply(Location.Area.INDIGO_PLATEAU) + " [T] Indigo Plateau" + R);
-                System.out.println("⢸⣹⣇⡀⣤⣏⣿⣀⣠⣼⣹⣄⣀ | ⣀⣠⣏⣹⣀⣠⡼o-- -- --⠀⠀" + rc.apply(18) + "18" + R + "⠀⠀⠀⢘⣇"
+                System.out.println("⢸⣹⣇⡀⣤⣏⣿⣀⣠⣼⣹⣄⣀ | ⣀⣠⣏⣹⣀⣠⡼o-- -- --⠀⠀" + rc.apply(18) + "18" + R + "⠀⠀⢘⣇"
                                 + ac.apply(Location.Area.FUCHSIA_CITY) + "[F]" + R + "⣿⡇⠀⠀⠀⠀" + rc.apply(15) + "15" + R
-                                + "⠀⠀ ⠀⠀⠀⢸⠀⠀⠀⠀" + B + "⢀⣴⣻⣅⢀⣼⣏⣧⡀⣤⣎⣺⣀" + R + " ~~~~~~~~~~~ Celadon City ~~~~~~~~~~~");
+                                + "⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀" + B + "⢀⣴⣻⣅⢀⣼⣏⣧⡀⣤⣎⣺⣀" + R + " ~~~~~~~~~~~ Celadon City ~~~~~~~~~~~");
                 System.out.println("⠸⢥⠟⣭⣿⣧⡼⢩⣽⣿⢬⣧⡟ | ⢸⣿⡿⡼⠣⣽⣻⡦⠟⢭⣿⣧⡼⢨⣷⡒⠒⠒⠒⠒⠒⠒⢺⠋⠉⠉⠉⣷⠒⠒" + B + "⣲⣶⣴⣶⡶⢦⣤⣶⣶⠆⣬⣽⣿⡿⢫⣭⡾⣤⠣⣽⣷⣧⡿⢨⣟⣿⡼⠁"
                                 + ac.apply(Location.Area.ROCKETOPOLIS) + " [R] Rocketopolis (North District)" + R);
                 System.out.println("⢰⣻⣏⠉⣁⣟⣿⠉⢉⡼⠟⠀⡇⠀|⠀⢸⡇⠙⢿⡉⠉⣠⣃⡏⠉⣁⣟⣉⠉⢉⣹⣦⡄⠀⠀⠀⠀⢸⠀" + rc.apply(19) + "19" + R + "⠀⣿" + B
@@ -6985,7 +6984,7 @@ public class Graphics {
                                 + ac.apply(Location.Area.VAUGHAN_DISTRICT) + " [G] Vaughan District (South District)"
                                 + R);
                 System.out.println("⢸⠾⡖⠛⠋⡿⣷⠺⡇" + R + "  ⢸⣿⣿" + ac.apply(Location.Area.CINNABAR_ISLAND) + "[I]" + R
-                                + "⣿- -- -- -- " + rc.apply(20) + "20" + R + " -- -- -- -- -⠒⠛" + B
+                                + "⣿- -- -- -- " + rc.apply(20) + "20" + R + " -- -- -- -⠒⠛" + B
                                 + "⢛⠾⡖⠛⠋⡻⢷⠚⠛⢹⢟⡖⠛⠋⡿⡷⠚⠛⢱⢿⠞⠛⢙⡟⡖⠚⠛⡳⢳⠀" + R + " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println(B + "⢸⣟⣿⠦⣯⣟⢻⠶⣧⣤⣤" + R + "⡤⣾⢬⣭⣭⡿" + B
                                 + "⢀⣀⣀⡀⢿⣭⡗⣿⠛⢀⣙⣁⠀⡿⣭⡛⡵⠶⣯⣞⢿⠲⣿⣽⢛⡷⠼⣿⡟⡿⠶⣯⣽⢻⡷⢼⣽⡛⡷⢶⢯⣟⣻⠦⢿⣿⡻⡷⢶⣯⡟⣿⠦⣯⣟⢻⠂" + R);
