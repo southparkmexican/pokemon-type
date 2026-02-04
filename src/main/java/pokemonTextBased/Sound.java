@@ -12,6 +12,7 @@ import java.util.HashMap;
 
 public class Sound {
     public static boolean disableSound = false;
+    public static boolean isJavaFXAvailable = true;
 
     private static final HashMap<String, Clip> clips = new HashMap<>();
     private static final HashMap<String, MediaPlayer> mediaPlayers = new HashMap<>();
@@ -74,6 +75,7 @@ public class Sound {
         if (disableSound) return;
 
         if (resourcePath.endsWith(".mp3")) {
+            if (!isJavaFXAvailable) return;
             MediaPlayer existing = mediaPlayers.get(resourcePath);
             if (existing != null && existing.getStatus() == MediaPlayer.Status.PLAYING) {
                 return; // already playing
@@ -96,6 +98,7 @@ public class Sound {
     }
 
     private static void playMP3(String resourcePath, boolean loop) {
+        if (!isJavaFXAvailable) return;
         try {
             MediaPlayer existing = mediaPlayers.get(resourcePath);
             if (existing != null) {
@@ -144,6 +147,7 @@ public class Sound {
         if (disableSound) return;
 
         if (resourcePath.endsWith(".mp3")) {
+            if (!isJavaFXAvailable) return;
             MediaPlayer player = mediaPlayers.remove(resourcePath);
             if (player != null) {
                 player.stop();
@@ -180,20 +184,22 @@ public class Sound {
             loopingClips.remove(key);
         }
 
-        var mediaKeys = new ArrayList<>(loopingMedia.keySet());
-        for (String key : mediaKeys) {
-            MediaPlayer player = mediaPlayers.get(key);
-            if (player != null) {
-                try {
-                    player.stop();
-                    player.dispose();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.out.println("Error stopping MP3: " + key);
+        if (isJavaFXAvailable) {
+            var mediaKeys = new ArrayList<>(loopingMedia.keySet());
+            for (String key : mediaKeys) {
+                MediaPlayer player = mediaPlayers.get(key);
+                if (player != null) {
+                    try {
+                        player.stop();
+                        player.dispose();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("Error stopping MP3: " + key);
+                    }
                 }
+                mediaPlayers.remove(key);
+                loopingMedia.remove(key);
             }
-            mediaPlayers.remove(key);
-            loopingMedia.remove(key);
         }
     }
 

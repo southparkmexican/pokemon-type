@@ -40,7 +40,12 @@ public class Game {
     private static final String SIGNATURE = "POKEMON-TBJE VERSION 1.0";
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        new javafx.embed.swing.JFXPanel();
+        try {
+            new javafx.embed.swing.JFXPanel();
+        } catch (Throwable t) {
+            System.err.println("Note: GUI environment not detected (Unable to open DISPLAY). MP3 sounds will be disabled.");
+            Sound.isJavaFXAvailable = false;
+        }
         Scanner sc1 = new Scanner(System.in);
         Thread.sleep(100);
         Graphics.printClearLines(50);
