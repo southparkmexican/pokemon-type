@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+DIR_LOCATION="$(dirname "${BASH_SOURCE[0]}")"
+DIR_JAVA="$DIR_LOCATION/java"
+
+export JAVA_HOME="$DIR_JAVA"/jdk-25.0.2
+export PATH=$JAVA_HOME/bin:$PATH
+export M2_HOME="$DIR_JAVA"/apache-maven-3.9.12
+export PATH=$M2_HOME/bin:$PATH
+
+java --enable-native-access=ALL-UNNAMED -jar target/pokemon_tbje-1.0.jar

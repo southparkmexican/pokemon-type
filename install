@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+DIR_LOCATION="$(dirname "${BASH_SOURCE[0]}")"
+DIR_JAVA="$DIR_LOCATION/java"
+
+if [[ ! -d "$DIR_JAVA" ]]; then
+  mkdir "$DIR_JAVA"
+  curl https://download.oracle.com/java/25/latest/jdk-25_linux-x64_bin.tar.gz -o "$DIR_JAVA/jdk-25.tar.gz"
+  curl https://dlcdn.apache.org/maven/maven-3/3.9.12/binaries/apache-maven-3.9.12-bin.tar.gz -o "$DIR_JAVA/mvn.tar.gz"
+  tar -xzf "$DIR_JAVA/jdk-25.tar.gz" -C "$DIR_JAVA"
+  tar -xzf "$DIR_JAVA/mvn.tar.gz" -C "$DIR_JAVA"
+  rm "$DIR_JAVA/jdk-25.tar.gz" "$DIR_JAVA/mvn.tar.gz"
+fi
+
+export JAVA_HOME=$DIR_JAVA/jdk-25.0.2
+export PATH=$JAVA_HOME/bin:$PATH
+
+#$DIR_LOCATION/java/apache-maven-3.9.12/bin/mvn -version
+$DIR_LOCATION/java/apache-maven-3.9.12/bin/mvn clean package
+

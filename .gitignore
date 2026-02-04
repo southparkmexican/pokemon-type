@@ -4,6 +4,8 @@ out*/
 target*
 .idea*/
 
+java/
+
 dependency-reduced-pom.xml
 
 .vscode/
