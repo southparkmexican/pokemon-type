@@ -40,15 +40,27 @@
             <artifactId>javafx-swing</artifactId>
             <version>24</version>
         </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-media</artifactId>
-            <version>24</version>
-        </dependency>
+
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
+        </dependency>
+        <!-- MP3SPI for pure Java MP3 playback -->
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>mp3spi</artifactId>
+            <version>1.9.5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>jlayer</artifactId>
+            <version>1.0.1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.soundlibs</groupId>
+            <artifactId>tritonus-share</artifactId>
+            <version>0.3.7.4</version>
         </dependency>
     </dependencies>
 
@@ -62,7 +74,7 @@
                     <release>${maven.compiler.release}</release>
                     <compilerArgs>
                         <arg>--add-modules</arg>
-                        <arg>javafx.controls,javafx.swing,javafx.media,javafx.graphics</arg>
+                        <arg>javafx.controls,javafx.swing,javafx.graphics</arg>
                     </compilerArgs>
                 </configuration>
             </plugin>
