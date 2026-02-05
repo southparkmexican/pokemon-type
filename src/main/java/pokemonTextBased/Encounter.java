@@ -4,27 +4,30 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 
 public class Encounter {
-    //Generate Pokemon
+    // Generate Pokemon
     public static Pokemon genWildPkmUpTo149() throws InterruptedException {
-        int currentEncNum = getEncNumUpToSomeDexNum(149); //change what method is used in future when encounters are customized per location
+        int currentEncNum = getEncNumUpToSomeDexNum(149); // change what method is used in future when encounters are
+                                                          // customized per location
         Random rand = new Random();
         int level = Party.getAvgPLvl() + 5;
         Species wildSpecies = Species.getSpecies(Species.getNameFromDexNum(currentEncNum));
         Pokemon wildPokemon = new Pokemon(wildSpecies, level, false);
         return wildPokemon;
     }
+
     public static int getEncNumUpToSomeDexNum(int highestDexNum) {
         Random rand = new Random();
         return rand.nextInt(highestDexNum) + 1;
     }
+
     public static final Map<String, Map<String, Integer>> pokemonInAreas = new HashMap<>();
     static {
         Map<String, Integer> route1Pokemon = new HashMap<>();
-        route1Pokemon.put("Pidgey", 30);  // Common
+        route1Pokemon.put("Pidgey", 30); // Common
         route1Pokemon.put("Rattata", 30); // Common
         route1Pokemon.put("Caterpie", 30); // Uncommon
-        route1Pokemon.put("Weedle", 30);   // Uncommon
-        route1Pokemon.put("Pikachu", 50);   // Rare
+        route1Pokemon.put("Weedle", 30); // Uncommon
+        route1Pokemon.put("Pikachu", 50); // Rare
         pokemonInAreas.put("Route 1", route1Pokemon);
 
         Map<String, Integer> route2Pokemon = new HashMap<>();
@@ -41,17 +44,17 @@ public class Encounter {
         pokemonInAreas.put("Route 2", route2Pokemon);
 
         Map<String, Integer> route3Pokemon = new HashMap<>();
-        route3Pokemon.put("Pidgey", 30);  // Common
+        route3Pokemon.put("Pidgey", 30); // Common
         route3Pokemon.put("Spearow", 30); // Common
-        route3Pokemon.put("Mankey", 40);  // Uncommon
+        route3Pokemon.put("Mankey", 40); // Uncommon
         route3Pokemon.put("Jigglypuff", 20);
         route3Pokemon.put("Eevee", 15);// Rare
-        route3Pokemon.put("Abra", 20);     // Very Rare
+        route3Pokemon.put("Abra", 20); // Very Rare
         pokemonInAreas.put("Route 3", route3Pokemon);
 
         Map<String, Integer> route4Pokemon = new HashMap<>();
-        route4Pokemon.put("Rattata", 15);  // Common
-        route4Pokemon.put("Spearow", 20);  // Common
+        route4Pokemon.put("Rattata", 15); // Common
+        route4Pokemon.put("Spearow", 20); // Common
         route4Pokemon.put("Ekans", 21);
         route4Pokemon.put("Eevee", 23);
         route4Pokemon.put("Growlithe", 22);
@@ -60,12 +63,12 @@ public class Encounter {
         pokemonInAreas.put("Route 4", route4Pokemon);
 
         Map<String, Integer> route5Pokemon = new HashMap<>();
-        route5Pokemon.put("Pidgey", 30);  // Common
-        route5Pokemon.put("Meowth", 25);  // Common
-        route5Pokemon.put("Oddish", 22);  // Uncommon
+        route5Pokemon.put("Pidgey", 30); // Common
+        route5Pokemon.put("Meowth", 25); // Common
+        route5Pokemon.put("Oddish", 22); // Uncommon
         route5Pokemon.put("Vulpix", 21);
         route5Pokemon.put("Bellsprout", 20); // Uncommon
-        route5Pokemon.put("Psyduck", 19);  // Rare
+        route5Pokemon.put("Psyduck", 19); // Rare
         pokemonInAreas.put("Route 5", route5Pokemon);
 
         Map<String, Integer> route6Pokemon = new HashMap<>();
@@ -361,6 +364,7 @@ public class Encounter {
         cinnabarLabPokemon.put("Kabuto", 50);
         pokemonInAreas.put("Cinnabar Lab", cinnabarLabPokemon);
     }
+
     public static Pokemon getPkmInArea(String areaName) {
         Map<String, Integer> area = getPkmsInArea(areaName);
         if (area == null || area.isEmpty()) {
@@ -388,11 +392,14 @@ public class Encounter {
         Species wildSpecies = Species.getSpecies(selectedPokemon);
         return new Pokemon(wildSpecies, level, false);
     }
+
     public static Map<String, Integer> getPkmsInArea(String areaName) {
         return pokemonInAreas.getOrDefault(areaName, new HashMap<>());
     }
-    //Generate trainers
-    public static final Map<String, List<Trainer>> areaTrainers = new HashMap<>(); //make this hold titles rather than trainer objects
+
+    // Generate trainers
+    public static final Map<String, List<Trainer>> areaTrainers = new HashMap<>(); // make this hold titles rather than
+                                                                                   // trainer objects
     static {
         List<Trainer> route1Trainers = new ArrayList<>();
         route1Trainers.add(new Trainer(Trainer.Title.YOUNGSTER));
@@ -682,10 +689,12 @@ public class Encounter {
         cinnabarLabTrainers.add(new Trainer(Trainer.Title.SCIENTIST));
         cinnabarLabTrainers.add(new Trainer(Trainer.Title.ENGINEER));
         areaTrainers.put("Cinnabar Lab", cinnabarLabTrainers);
-    } //improve upon
+    } // improve upon
+
     public static List<Trainer> getTrainersFromArea(String areaName) {
         return areaTrainers.getOrDefault(areaName, new ArrayList<>());
     }
+
     public static Trainer getTrainerInArea(String areaName) {
         List<Trainer> trainers = areaTrainers.get(areaName);
         if (trainers == null || trainers.isEmpty()) {
@@ -698,15 +707,17 @@ public class Encounter {
     }
 
     // Wild Encounter Logic
-    public static void enterWildPkmBattle(Pokemon wildPokemon, Scanner sc1) throws InterruptedException, ExecutionException{
+    public static void enterWildPkmBattle(Pokemon wildPokemon, Scanner sc1)
+            throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        Pokemon[] fp = {wildPokemon};
+        Pokemon[] fp = { wildPokemon };
         Engine engine = new Engine(new EnginePackage(EnginePackage.defaultEngineParameterMap), true);
         Arena arena = new Arena(Party.p, fp, engine, engine);
         Sound.playMusicOnLoop("music/wildBattleTheme.mp3");
         Graphics.printPokemon(wildPokemon.getName(), false, wildPokemon.isShiny());
         System.out.println("A wild " + arena.fp[0].getName() + " appeared!");
-        if(arena.fp[0].isShiny()) Sound.playSoundOnce("music/shinySparkles.mp3");
+        if (arena.fp[0].isShiny())
+            Sound.playSoundOnce("music/shinySparkles.mp3");
         Thread.sleep(User.textSpeed);
         Graphics.printPokemon(arena.p[0].getName(), false, arena.p[0].isShiny());
         System.out.println("You sent out " + arena.p[0].getName() + "!");
@@ -719,7 +730,8 @@ public class Encounter {
         Sound.stopAllSounds();
         Party.smushParty();
     }
-    public static void playWildPkmBattle(Arena arena, Scanner sc1) throws InterruptedException, ExecutionException{
+
+    public static void playWildPkmBattle(Arena arena, Scanner sc1) throws InterruptedException, ExecutionException {
         boolean wildPkmIsCaught = arena.isCaught;
         boolean playerHasRunAway = false;
         boolean playerSwitched = false;
@@ -731,26 +743,27 @@ public class Encounter {
             if (arena.p[0].isSkipNextTurn()) {
                 System.out.println(arena.p[0].getName() + " is waiting this turn.\n");
                 Thread.sleep(User.textSpeed);
-            }
-            else {
+            } else {
                 String choice = getPlayerChoice(arena, sc1);
                 switch (choice) {
                     case "F":
                         Move engineBestMove = Fight.findBestMove(arena, arena.p[0], arena.fp[0]);
                         playerMove = Fight.askUserToChooseAMove(arena, arena.p[0], arena.fp[0], engineBestMove, sc1);
-                        if (playerMove == null) continue; // meaning player canceled move selection
+                        if (playerMove == null)
+                            continue; // meaning player canceled move selection
                         break;
 
                     case "B":
                         if (Bag.openBattlePocketWildEncounter(arena, sc1)) {
                             playerMove = null;
                             wildPkmIsCaught = (arena.isCaught);
-                            break; //meaning player used an item from the bag
+                            break; // meaning player used an item from the bag
                         }
                         continue;
                     case "S":
                         playerSwitched = Party.switchPokemon(arena, false, sc1);
-                        if (!playerSwitched) continue;
+                        if (!playerSwitched)
+                            continue;
                         else {
                             arena.p[0].setTurnSentOut(arena.turnNum);
                             Thread.sleep((long) (User.textSpeed * .75));
@@ -765,68 +778,76 @@ public class Encounter {
                         Sound.playSoundOnce("music/runAway.mp3");
                         playerHasRunAway = true;
                         break;
-                    default: continue;
+                    default:
+                        continue;
                 }
             }
-            //start of turn stuff
-            if (!arena.isCaught) handleStatusConditionsAtBeginningOfTurn(arena);
+            // start of turn stuff
+            if (!arena.isCaught)
+                handleStatusConditionsAtBeginningOfTurn(arena);
 
-                // Handles turns (normal switches & move order based on speed)
+            // Handles turns (normal switches & move order based on speed)
             if (!playerHasRunAway && !wildPkmIsCaught) {
                 processMoveOrder(arena, playerMove, foeMove, playerSwitched);
             }
-            //Handle things like burn and poison
+            // Handle things like burn and poison
             handleEndOfTurnInteractions(arena);
 
             // Handle forced switch or defeat
             if (!playerHasRunAway && arena.p[0].getCurrentHp() == 0) {
                 System.out.println("Your " + arena.p[0].getName() + " fainted!");
                 Thread.sleep((long) (User.textSpeed * 0.5));
-                playerSwitched = Party.switchPokemon(arena,false, sc1);
+                playerSwitched = Party.switchPokemon(arena, false, sc1);
                 if (playerSwitched) {
                     arena.p[0].setTurnSentOut(arena.turnNum);
-                }
-                else {
+                } else {
                     System.out.println("You have no Pokémon left to fight!");
                     Game.pressEnterToContinue(sc1);
                     playerHasRunAway = true; // Forced run if no Pokémon left
                 }
             }
 
-            if (!playerHasRunAway && arena.fp[0].getCurrentHp() > 0 && arena.p[0].getCurrentHp() > 0 && !wildPkmIsCaught) {
+            if (!playerHasRunAway && arena.fp[0].getCurrentHp() > 0 && arena.p[0].getCurrentHp() > 0
+                    && !wildPkmIsCaught) {
                 playerMove = null;
                 Thread.sleep((long) (User.textSpeed * 0.5));
             }
-            if (arena.p[0].isSkipNextTurn() && (arena.p[0].getRechargeTurn() == arena.turnNum)){
+            if (arena.p[0].isSkipNextTurn() && (arena.p[0].getRechargeTurn() == arena.turnNum)) {
                 System.out.println(arena.p[0].getName() + " is waiting!\n");
                 Thread.sleep(User.textSpeed);
             }
-            //things to do at the end of each turn
+            // things to do at the end of each turn
             handleTurnChangeInteractions(arena);
             playerSwitched = false;
             arena.incrementTurns();
-        } while (!playerHasRunAway && arena.fp[0].getCurrentHp() > 0 && arena.p[0].getCurrentHp() > 0 && !wildPkmIsCaught); //ends a turn
+        } while (!playerHasRunAway && arena.fp[0].getCurrentHp() > 0 && arena.p[0].getCurrentHp() > 0
+                && !wildPkmIsCaught); // ends a turn
         // end-of-battle messages & reward player
         doWildPkmBattleOutcome(arena, wildPkmIsCaught, playerHasRunAway);
     }
-    public static void doWildPkmBattleOutcome(Arena arena, boolean wildPkmIsCaught, boolean playerHasRunAway) throws InterruptedException {
+
+    public static void doWildPkmBattleOutcome(Arena arena, boolean wildPkmIsCaught, boolean playerHasRunAway)
+            throws InterruptedException {
         if (arena.fp[0].getCurrentHp() == 0) {
             Sound.stopAllSounds();
             System.out.println("The wild " + arena.fp[0].getName() + " fainted!\n");
             Sound.playMusicOnLoop("music/victoryVsWildPkmTheme.mp3");
             Thread.sleep((long) (User.textSpeed * .75));
         } else if (wildPkmIsCaught) {
-            //handled in bag!
+            // handled in bag!
         }
         Thread.sleep((long) (User.textSpeed * 0.5));
-        if (!playerHasRunAway) Party.levelUpEntirePartyByOne();
+        if (!playerHasRunAway)
+            Party.levelUpEntirePartyByOne();
         Party.resetPartyAfterBattle();
     }
-    //General logic
+
+    // General logic
     public static void displayBattleStatus(Arena arena, boolean isTrainerBattle) {
         String foePartyGraphic = "";
-        if(isTrainerBattle) foePartyGraphic = makeTrainerPartyGraphic(arena,true);
-        String playerPartyGraphic = makeTrainerPartyGraphic(arena,false);
+        if (isTrainerBattle)
+            foePartyGraphic = makeTrainerPartyGraphic(arena, true);
+        String playerPartyGraphic = makeTrainerPartyGraphic(arena, false);
 
         Pokemon foe = arena.fp[0];
         Pokemon pkm = arena.p[0];
@@ -846,10 +867,13 @@ public class Encounter {
         if (!arena.weather.equals("None")) {
             weatherMessage = "It's " + arena.getWeather() + ".";
         }
-        System.out.println("                                                        " + weatherMessage + " " +  "~Turn " + arena.getTurnNum() + "~");
-        System.out.println("                                                        " + Fight.makeMatchUpAnalysisStr(arena, pkm, foe));
+        System.out.println("                                                        " + weatherMessage + " " + "~Turn "
+                + arena.getTurnNum() + "~");
+        System.out.println("                                                        "
+                + Fight.makeMatchUpAnalysisStr(arena, pkm, foe));
 
     }
+
     public static void printHealthBar(Pokemon pokemon, int length) {
         final String RESET = "\u001B[0m";
         final String RED = "\u001B[31m";
@@ -861,7 +885,7 @@ public class Encounter {
 
         double maxHp = pokemon.getCurrentMaxHp();
         double currentHp = pokemon.getCurrentHp();
-        double unroundedHpRatio =  (currentHp/maxHp);
+        double unroundedHpRatio = (currentHp / maxHp);
         double hp = Math.round(unroundedHpRatio * barLength);
 
         String emptyStart = "⣏";
@@ -870,18 +894,22 @@ public class Encounter {
         String empty = "⣉";
 
         String color = RESET;
-        if (unroundedHpRatio < .2) color = RED;
-        else if (unroundedHpRatio < .5) color = YELLOW;
-        else if (unroundedHpRatio < .80) color = YELLOW_GREEN;
-        else color = GREEN;
+        if (unroundedHpRatio < .2)
+            color = RED;
+        else if (unroundedHpRatio < .5)
+            color = YELLOW;
+        else if (unroundedHpRatio < .80)
+            color = YELLOW_GREEN;
+        else
+            color = GREEN;
 
         String[] healthBar = new String[barLength];
         for (int i = 0; i < barLength; i++) {
-            if (i<hp) {
+            if (i < hp) {
                 healthBar[i] = full;
-            } else if(i == 0){
+            } else if (i == 0) {
                 healthBar[i] = emptyStart;
-            } else if(i < barLength - 1){
+            } else if (i < barLength - 1) {
                 healthBar[i] = empty;
             } else {
                 healthBar[i] = emptyEnd;
@@ -894,88 +922,113 @@ public class Encounter {
         System.out.print(RESET + "]");
 
     }
+
     public static String makeTrainerPartyGraphic(Arena arena, boolean isFoe) {
         Pokemon[] partyArr = isFoe ? arena.fp : arena.p;
         String[] graphicArr = new String[6];
         StringBuilder graphic = new StringBuilder();
-        for(int i = 0; i < partyArr.length; i++) {
-            if (partyArr[i] == null) graphicArr[i] = "."; //empty
-            else if (partyArr[i].getCurrentHp() > 0) graphicArr[i] = "o"; //alive
-            else graphicArr[i] = "x"; //dead :(
+        for (int i = 0; i < partyArr.length; i++) {
+            if (partyArr[i] == null)
+                graphicArr[i] = "."; // empty
+            else if (partyArr[i].getCurrentHp() > 0)
+                graphicArr[i] = "o"; // alive
+            else
+                graphicArr[i] = "x"; // dead :(
         }
-        for(String slot : graphicArr) {
-            if (slot != null && slot.equals("o")) graphic.append(slot);
+        for (String slot : graphicArr) {
+            if (slot != null && slot.equals("o"))
+                graphic.append(slot);
         }
-        for(String slot : graphicArr) {
-            if (slot != null && slot.equals("x")) graphic.append(slot);
+        for (String slot : graphicArr) {
+            if (slot != null && slot.equals("x"))
+                graphic.append(slot);
         }
         int numEmptySlots = 0;
         numEmptySlots = 6 - partyArr.length;
         for (Pokemon pkm : partyArr) {
-            if (pkm == null) numEmptySlots++;
+            if (pkm == null)
+                numEmptySlots++;
         }
         graphic.append("-".repeat(Math.max(0, numEmptySlots)));
         return graphic.toString();
     }
+
     public static String getPlayerChoice(Arena arena, Scanner sc1) {
         String choice;
-        System.out.println("Fight [F] | Bag [B] | Switch [S] | [I] Info | Run [R] " + Fight.makeRecommendedSwitchStr(arena));
+        System.out.println(
+                "Fight [F] | Bag [B] | Switch [S] | [I] Info | Run [R] " + Fight.makeRecommendedSwitchStr(arena));
         choice = sc1.nextLine().trim().toUpperCase();
 
-        if (choice.matches("[FBSIR]")) return choice;
+        if (choice.matches("[FBSIR]"))
+            return choice;
         System.out.println("Invalid input.");
         return "-1";
     }
+
     public static void handleStatusConditionsAtBeginningOfTurn(Arena arena) throws InterruptedException {
-        if(arena.p[0].getStatusCondition().equalsIgnoreCase("Sleep") && (arena.p[0].getWakeUpTurn() <= arena.turnNum || Math.random() < .33)){
+        if (arena.p[0].getStatusCondition().equalsIgnoreCase("Sleep")
+                && (arena.p[0].getWakeUpTurn() <= arena.turnNum || Math.random() < .33)) {
             arena.p[0].setStatusCondition("None");
             arena.p[0].setWakeUpTurnToTurnNum(arena);
         }
-        if(arena.fp[0].getStatusCondition().equalsIgnoreCase("Sleep") && (arena.fp[0].getWakeUpTurn() <= arena.turnNum ||Math.random() < .33)){
+        if (arena.fp[0].getStatusCondition().equalsIgnoreCase("Sleep")
+                && (arena.fp[0].getWakeUpTurn() <= arena.turnNum || Math.random() < .33)) {
             arena.fp[0].setStatusCondition("None");
             arena.fp[0].setWakeUpTurnToTurnNum(arena);
         }
     }
-    public static void handleTurnChangeInteractions(Arena arena) throws InterruptedException{
+
+    public static void handleTurnChangeInteractions(Arena arena) throws InterruptedException {
         arena.p[0].setFlinched(false);
         arena.fp[0].setFlinched(false);
         String originalWeather = arena.weather;
         boolean wasOriginallyTrickRoom = arena.trickRoomIsUp;
-        if(arena.turnWeatherEnds == arena.turnNum){
+        if (arena.turnWeatherEnds == arena.turnNum) {
             arena.setWeather("None");
-            if(arena.playerEngine.battleDialogsAreEnabled) System.out.println("It stopped being " + originalWeather + ".\n");
+            if (arena.playerEngine.battleDialogsAreEnabled)
+                System.out.println("It stopped being " + originalWeather + ".\n");
             Thread.sleep(User.textSpeed);
         }
-        if(wasOriginallyTrickRoom && arena.turnTrickRoomEnds == arena.turnNum){
+        if (wasOriginallyTrickRoom && arena.turnTrickRoomEnds == arena.turnNum) {
             arena.setTrickRoom(false);
-            if(arena.playerEngine.battleDialogsAreEnabled) System.out.println("The dimension of spacetime went back to normal!");
+            if (arena.playerEngine.battleDialogsAreEnabled)
+                System.out.println("The dimension of spacetime went back to normal!");
             Thread.sleep(User.textSpeed);
         }
-        if(arena.fp[0].isSkipNextTurn() && arena.fp[0].getRechargeTurn() <= arena.turnNum){
+        if (arena.fp[0].isSkipNextTurn() && arena.fp[0].getRechargeTurn() <= arena.turnNum) {
             arena.fp[0].setSkipNextTurn(false);
         }
-        if(arena.p[0].isSkipNextTurn() && arena.p[0].getRechargeTurn() <= arena.turnNum){
+        if (arena.p[0].isSkipNextTurn() && arena.p[0].getRechargeTurn() <= arena.turnNum) {
             arena.p[0].setSkipNextTurn(false);
         }
     }
+
     public static void handleEndOfTurnInteractions(Arena arena) throws InterruptedException {
-        if(arena.p[0].getStatusCondition().equals("Burn") || arena.p[0].getStatusCondition().equals("Poison")) {
-            arena.p[0].setCurrentHp(Math.max(arena.p[0].getCurrentHp() - (int) (arena.p[0].getCurrentMaxHp()*.125), 0));
-            if(arena.playerEngine.battleDialogsAreEnabled) System.out.println(arena.p[0].getName() + " took damage due to its " + arena.p[0].getStatusCondition().toLowerCase() + "!\n");
+        if (arena.p[0].getStatusCondition().equals("Burn") || arena.p[0].getStatusCondition().equals("Poison")) {
+            arena.p[0]
+                    .setCurrentHp(Math.max(arena.p[0].getCurrentHp() - (int) (arena.p[0].getCurrentMaxHp() * .125), 0));
+            if (arena.playerEngine.battleDialogsAreEnabled)
+                System.out.println(arena.p[0].getName() + " took damage due to its "
+                        + arena.p[0].getStatusCondition().toLowerCase() + "!\n");
             Sound.playSoundOnce("music/cut.mp3");
             Thread.sleep(User.textSpeed);
         }
-        if(arena.fp[0].getStatusCondition().equals("Burn") || arena.fp[0].getStatusCondition().equals("Poison")) {
-            arena.fp[0].setCurrentHp(Math.max(arena.fp[0].getCurrentHp() - (int) (arena.fp[0].getCurrentMaxHp()*.125), 0));
-            if(arena.playerEngine.battleDialogsAreEnabled) System.out.println(arena.fp[0].getName() + " took damage due to its " + arena.fp[0].getStatusCondition().toLowerCase() + "!\n");
+        if (arena.fp[0].getStatusCondition().equals("Burn") || arena.fp[0].getStatusCondition().equals("Poison")) {
+            arena.fp[0].setCurrentHp(
+                    Math.max(arena.fp[0].getCurrentHp() - (int) (arena.fp[0].getCurrentMaxHp() * .125), 0));
+            if (arena.playerEngine.battleDialogsAreEnabled)
+                System.out.println(arena.fp[0].getName() + " took damage due to its "
+                        + arena.fp[0].getStatusCondition().toLowerCase() + "!\n");
             Sound.playSoundOnce("music/cut.mp3");
             Thread.sleep(User.textSpeed);
         }
     }
-    public static void viewBattleInfo(Arena arena, Pokemon playerPokemon, Pokemon opponentPokemon, Scanner sc1) throws InterruptedException, ExecutionException {
+
+    public static void viewBattleInfo(Arena arena, Pokemon playerPokemon, Pokemon opponentPokemon, Scanner sc1)
+            throws InterruptedException, ExecutionException {
         boolean displayWinPercentage = false;
         int accuracy = 50;
-        if(User.hintMode == User.Hints.SHOW_ENGINE_CHOICES) {
+        if (User.hintMode == User.Hints.SHOW_ENGINE_CHOICES) {
             System.out.println("                  Display win %?");
             System.out.println("===================================================");
             System.out.println(" [1] Low Accuracy         (fast load times!)");
@@ -985,15 +1038,22 @@ public class Encounter {
             String accuracySelection = "1";
             displayWinPercentage = true;
             accuracySelection = sc1.nextLine().trim().toUpperCase();
-            if (accuracySelection.equalsIgnoreCase("D")) displayWinPercentage = false;
-            else if (accuracySelection.equals("1")) accuracy = 100;
-            else if (accuracySelection.equals("2")) accuracy = 500;
-            else if (accuracySelection.equals("3")) accuracy = 2000;
-            else System.out.println("Invalid input. Defaulting to low accuracy...");
-            if(displayWinPercentage) System.out.println("Loading... (this may take some time at higher accuracies)");
+            if (accuracySelection.equalsIgnoreCase("D"))
+                displayWinPercentage = false;
+            else if (accuracySelection.equals("1"))
+                accuracy = 100;
+            else if (accuracySelection.equals("2"))
+                accuracy = 500;
+            else if (accuracySelection.equals("3"))
+                accuracy = 2000;
+            else
+                System.out.println("Invalid input. Defaulting to low accuracy...");
+            if (displayWinPercentage)
+                System.out.println("Loading... (this may take some time at higher accuracies)");
         }
         String winPercentMessage = "";
-        if(displayWinPercentage) winPercentMessage = Engine.calculateWinPercentage(arena.p, arena.fp, accuracy);
+        if (displayWinPercentage)
+            winPercentMessage = Engine.calculateWinPercentage(arena.p, arena.fp, accuracy);
         System.out.println("=================== Battle Info ===================");
         displayBattleInfo(arena, playerPokemon, opponentPokemon);
         System.out.println("===================================================");
@@ -1002,6 +1062,7 @@ public class Encounter {
         Game.pressEnterToContinue(sc1);
 
     }
+
     public static void displayBattleInfo(Arena arena, Pokemon playerPokemon, Pokemon opponentPokemon) {
         System.out.printf("%-30s vs %-30s%n",
                 playerPokemon.getName() + " (Lv. " + playerPokemon.getLevel() + ")",
@@ -1015,39 +1076,52 @@ public class Encounter {
                 "HP: " + playerPokemon.getCurrentHp() + "/" + playerPokemon.getCurrentMaxHp(),
                 "HP: " + opponentPokemon.getCurrentHp() + "/" + opponentPokemon.getCurrentMaxHp());
 
-
         displayStatLine("Attack",
-                (double) playerPokemon.getCurrentAttack() * playerPokemon.getStatMultiplier("Attack"), playerPokemon.attackStage,
-                (double) opponentPokemon.getCurrentAttack() * opponentPokemon.getStatMultiplier("Attack"), opponentPokemon.attackStage);
+                (double) playerPokemon.getCurrentAttack() * playerPokemon.getStatMultiplier("Attack"),
+                playerPokemon.attackStage,
+                (double) opponentPokemon.getCurrentAttack() * opponentPokemon.getStatMultiplier("Attack"),
+                opponentPokemon.attackStage);
 
         displayStatLine("Defense",
-                (double) playerPokemon.getCurrentDefense() * playerPokemon.getStatMultiplier("Defense"), playerPokemon.defenseStage,
-                (double) opponentPokemon.getCurrentDefense() * opponentPokemon.getStatMultiplier("Defense"), opponentPokemon.defenseStage);
+                (double) playerPokemon.getCurrentDefense() * playerPokemon.getStatMultiplier("Defense"),
+                playerPokemon.defenseStage,
+                (double) opponentPokemon.getCurrentDefense() * opponentPokemon.getStatMultiplier("Defense"),
+                opponentPokemon.defenseStage);
 
         displayStatLine("Sp. Atk",
-                (double) playerPokemon.getCurrentSpAtk() * playerPokemon.getStatMultiplier("SpAtk"), playerPokemon.spAtkStage,
-                (double) opponentPokemon.getCurrentSpAtk() * opponentPokemon.getStatMultiplier("SpAtk"), opponentPokemon.spAtkStage);
+                (double) playerPokemon.getCurrentSpAtk() * playerPokemon.getStatMultiplier("SpAtk"),
+                playerPokemon.spAtkStage,
+                (double) opponentPokemon.getCurrentSpAtk() * opponentPokemon.getStatMultiplier("SpAtk"),
+                opponentPokemon.spAtkStage);
 
         displayStatLine("Sp. Def",
-                (double) playerPokemon.getCurrentSpDef() * playerPokemon.getStatMultiplier("SpDef"), playerPokemon.spDefStage,
-                (double) opponentPokemon.getCurrentSpDef() * opponentPokemon.getStatMultiplier("SpDef"), opponentPokemon.spDefStage);
+                (double) playerPokemon.getCurrentSpDef() * playerPokemon.getStatMultiplier("SpDef"),
+                playerPokemon.spDefStage,
+                (double) opponentPokemon.getCurrentSpDef() * opponentPokemon.getStatMultiplier("SpDef"),
+                opponentPokemon.spDefStage);
 
         displayStatLine("Speed",
-                (double) playerPokemon.getCurrentSpeed() * playerPokemon.getStatMultiplier("Speed"), playerPokemon.speedStage,
-                (double) opponentPokemon.getCurrentSpeed() * opponentPokemon.getStatMultiplier("Speed"), opponentPokemon.speedStage);
+                (double) playerPokemon.getCurrentSpeed() * playerPokemon.getStatMultiplier("Speed"),
+                playerPokemon.speedStage,
+                (double) opponentPokemon.getCurrentSpeed() * opponentPokemon.getStatMultiplier("Speed"),
+                opponentPokemon.speedStage);
 
         System.out.printf("%-30s | %-30s%n",
                 "Status: " + playerPokemon.getStatusCondition(),
                 "Status: " + opponentPokemon.getStatusCondition());
 
         if (!arena.weather.equals("None")) {
-            System.out.println("It's " + arena.getWeather() + ". Ends in " + (arena.turnWeatherEnds - arena.turnNum + 1) + " turn(s).");
+            System.out.println("It's " + arena.getWeather() + ". Ends in " + (arena.turnWeatherEnds - arena.turnNum + 1)
+                    + " turn(s).");
         }
         if (arena.trickRoomIsUp) {
-            System.out.println("Trick Room is set! Ends in " + (arena.turnTrickRoomEnds - arena.turnNum + 1) + " turn(s).");
+            System.out.println(
+                    "Trick Room is set! Ends in " + (arena.turnTrickRoomEnds - arena.turnNum + 1) + " turn(s).");
         }
     }
-    public static void displayStatLine(String statName, double playerStat, int playerStage, double opponentStat, int opponentStage) {
+
+    public static void displayStatLine(String statName, double playerStat, int playerStage, double opponentStat,
+            int opponentStage) {
         String playerStatStr = statName + ": " + (int) playerStat +
                 (playerStage != 0 ? " (" + formatStage(playerStage) + ")" : "");
         String opponentStatStr = statName + ": " + (int) opponentStat +
@@ -1055,35 +1129,47 @@ public class Encounter {
 
         System.out.printf("%-30s | %-30s%n", playerStatStr, opponentStatStr);
     }
+
     public static String formatStage(int stage) {
-        if (stage > 0) return "+" + stage;
+        if (stage > 0)
+            return "+" + stage;
         return String.valueOf(stage);
     }
-    //turn order
+
+    // turn order
     public static void executePlayerMove(Arena arena, Move playerMove) throws InterruptedException {
-        if (arena.p[0].getCurrentHp() > 0 && !arena.p[0].isFlinched() && !arena.p[0].isSkipNextTurn() && !arena.p[0].getStatusCondition().equals("Sleep")) {
+        if (arena.p[0].getCurrentHp() > 0 && !arena.p[0].isFlinched() && !arena.p[0].isSkipNextTurn()
+                && !arena.p[0].getStatusCondition().equals("Sleep")) {
             Fight.useMove(arena, playerMove, arena.p[0], arena.fp[0]);
-        }
-        else if (arena.p[0].getCurrentHp() > 0 && arena.p[0].getStatusCondition().equals("Sleep")) {
-            if(arena.playerEngine.battleDialogsAreEnabled) System.out.println(arena.p[0].getName() + " is fast asleep!\n");
+        } else if (arena.p[0].getCurrentHp() > 0 && arena.p[0].getStatusCondition().equals("Sleep")) {
+            if (arena.playerEngine.battleDialogsAreEnabled)
+                System.out.println(arena.p[0].getName() + " is fast asleep!\n");
             Thread.sleep((long) (.75 * User.textSpeed));
         }
-        //do nothing if player fainted
+        // do nothing if player fainted
     }
+
     public static void executeFoeMove(Arena arena, Move foeMove) throws InterruptedException {
-        if (arena.fp[0].getCurrentHp() > 0 && !arena.fp[0].isFlinched() && !arena.fp[0].isSkipNextTurn() && !arena.fp[0].getStatusCondition().equals("Sleep")) {
+        if (arena.fp[0].getCurrentHp() > 0 && !arena.fp[0].isFlinched() && !arena.fp[0].isSkipNextTurn()
+                && !arena.fp[0].getStatusCondition().equals("Sleep")) {
             Fight.useMove(arena, foeMove, arena.fp[0], arena.p[0]);
         }
-        if (arena.fp[0].getCurrentHp() > 0 && arena.fp[0].isSkipNextTurn() && (arena.fp[0].getRechargeTurn()+1 != arena.getTurnNum())){
-            if(arena.playerEngine.battleDialogsAreEnabled) System.out.println(arena.fp[0].getName() + " is waiting!\n");
-            Thread.sleep((long)(.75* User.textSpeed));
+        if (arena.fp[0].getCurrentHp() > 0 && arena.fp[0].isSkipNextTurn()
+                && (arena.fp[0].getRechargeTurn() + 1 != arena.getTurnNum())) {
+            if (arena.playerEngine.battleDialogsAreEnabled)
+                System.out.println(arena.fp[0].getName() + " is waiting!\n");
+            Thread.sleep((long) (.75 * User.textSpeed));
         }
-        if (arena.fp[0].getCurrentHp() > 0 && arena.fp[0].getStatusCondition().equals("Sleep") && (arena.fp[0].getWakeUpTurn() != arena.getTurnNum() +3)){
-            if(arena.playerEngine.battleDialogsAreEnabled) System.out.println(arena.fp[0].getName() + " is fast asleep!\n");
+        if (arena.fp[0].getCurrentHp() > 0 && arena.fp[0].getStatusCondition().equals("Sleep")
+                && (arena.fp[0].getWakeUpTurn() != arena.getTurnNum() + 3)) {
+            if (arena.playerEngine.battleDialogsAreEnabled)
+                System.out.println(arena.fp[0].getName() + " is fast asleep!\n");
             Thread.sleep((long) (.75 * User.textSpeed));
         }
     }
-    public static void processMoveOrder(Arena arena, Move playerMove, Move foeMove, boolean playerSwitched) throws InterruptedException {
+
+    public static void processMoveOrder(Arena arena, Move playerMove, Move foeMove, boolean playerSwitched)
+            throws InterruptedException {
         boolean foeHasSpeedOrPriorityAdvantage = checkIfFoeHasSpeedOrPriorityAdvantage(arena, playerMove, foeMove);
         boolean isSpeedTie = checkIfIsSpeedTie(arena);
         if (playerSwitched) {
@@ -1092,77 +1178,98 @@ public class Encounter {
         }
         int foePriority = (foeMove == null) ? 0 : foeMove.getPriority();
         int playerPriority = (playerMove == null) ? 0 : playerMove.getPriority();
-        if(isSpeedTie && foePriority == playerPriority) {
+        if (isSpeedTie && foePriority == playerPriority) {
             foeHasSpeedOrPriorityAdvantage = Math.random() < .5;
         }
         if (foeHasSpeedOrPriorityAdvantage) {
-            if (foeMove != null) executeFoeMove(arena, foeMove);
-            if (playerMove != null) executePlayerMove(arena, playerMove);
+            if (foeMove != null)
+                executeFoeMove(arena, foeMove);
+            if (playerMove != null)
+                executePlayerMove(arena, playerMove);
         } else {
-            if (playerMove != null) executePlayerMove(arena, playerMove);
-            if (foeMove != null) executeFoeMove(arena, foeMove);
+            if (playerMove != null)
+                executePlayerMove(arena, playerMove);
+            if (foeMove != null)
+                executeFoeMove(arena, foeMove);
         }
     }
+
     public static boolean checkIfFoeHasSpeedOrPriorityAdvantage(Arena arena, Move playerMove, Move foeMove) {
         boolean foeIsFaster = checkIfDealerIsFaster(arena, arena.fp[0], arena.p[0]);
         boolean foeHasPriorityAdvantage = checkIfFoeHasPriotityAdvantage(playerMove, foeMove);
         boolean playerHasPriorityAdvantage = checkIfPlayerHasPriotityAdvantage(playerMove, foeMove);
 
-        if(foeHasPriorityAdvantage) return true;
-        if(playerHasPriorityAdvantage) return false;
-        else return foeIsFaster;
+        if (foeHasPriorityAdvantage)
+            return true;
+        if (playerHasPriorityAdvantage)
+            return false;
+        else
+            return foeIsFaster;
     }
+
     public static boolean checkIfFoeHasPriotityAdvantage(Move playerMove, Move foeMove) {
         int playerPriority = 0;
         int foePriority = 0;
-        if (foeMove != null) foePriority = foeMove.getPriority();
-        if (playerMove != null) playerPriority = playerMove.getPriority();
+        if (foeMove != null)
+            foePriority = foeMove.getPriority();
+        if (playerMove != null)
+            playerPriority = playerMove.getPriority();
         return foePriority > playerPriority;
     }
+
     public static boolean checkIfPlayerHasPriotityAdvantage(Move playerMove, Move foeMove) {
         int playerPriority = 0;
         int foePriority = 0;
-        if (foeMove != null) foePriority = foeMove.getPriority();
-        if (playerMove != null) playerPriority = playerMove.getPriority();
+        if (foeMove != null)
+            foePriority = foeMove.getPriority();
+        if (playerMove != null)
+            playerPriority = playerMove.getPriority();
         return playerPriority > foePriority;
     }
+
     public static boolean checkIfDealerIsFaster(Arena arena, Pokemon dealer, Pokemon recipient) {
         double dealerParalysisMult = 1.0;
         double recipientParalysisMult = 1.0;
         double dealerSpeed = dealer.getCurrentSpeed() * dealer.getStatMultiplier("Speed") * dealerParalysisMult;
-        double recipientSpeed = recipient.getCurrentSpeed() * recipient.getStatMultiplier("Speed") * recipientParalysisMult;
-        if(dealer.getStatusCondition().equals("Paralysis")){
+        double recipientSpeed = recipient.getCurrentSpeed() * recipient.getStatMultiplier("Speed")
+                * recipientParalysisMult;
+        if (dealer.getStatusCondition().equals("Paralysis")) {
             dealerParalysisMult = .25;
         }
-        if(recipient.getStatusCondition().equals("Paralysis")){
+        if (recipient.getStatusCondition().equals("Paralysis")) {
             recipientParalysisMult = .25;
         }
         dealerSpeed = dealerSpeed * dealerParalysisMult;
         recipientSpeed = recipientSpeed * recipientParalysisMult;
         boolean dealerIsFaster = false;
-        if (dealerSpeed > recipientSpeed) dealerIsFaster = true;
-        if (arena.trickRoomIsUp) dealerIsFaster = !dealerIsFaster;
+        if (dealerSpeed > recipientSpeed)
+            dealerIsFaster = true;
+        if (arena.trickRoomIsUp)
+            dealerIsFaster = !dealerIsFaster;
         return dealerIsFaster;
     }
+
     public static boolean checkIfIsSpeedTie(Arena arena) {
         double playerParalysisMult = 1.0;
         double foeParalysisMult = 1.0;
         double foeSpeed = arena.fp[0].getCurrentSpeed() * arena.fp[0].getStatMultiplier("Speed") * foeParalysisMult;
         double playerSpeed = arena.p[0].getCurrentSpeed() * arena.p[0].getStatMultiplier("Speed") * playerParalysisMult;
-        if(arena.p[0].getStatusCondition().equals("Paralysis")){
+        if (arena.p[0].getStatusCondition().equals("Paralysis")) {
             playerParalysisMult = .25;
         }
-        if(arena.fp[0].getStatusCondition().equals("Paralysis")){
+        if (arena.fp[0].getStatusCondition().equals("Paralysis")) {
             foeParalysisMult = .25;
         }
         foeSpeed = foeSpeed * foeParalysisMult;
         playerSpeed = playerSpeed * playerParalysisMult;
         return foeSpeed == playerSpeed;
     }
-    //Trainer LOGIC (WIP)
-    public static boolean enterTrainerBattle(Trainer trainer, Scanner sc1) throws InterruptedException, ExecutionException {
+
+    // Trainer LOGIC (WIP)
+    public static boolean enterTrainerBattle(Trainer trainer, Scanner sc1)
+            throws InterruptedException, ExecutionException {
         Sound.stopAllSounds();
-        Engine engine = new Engine(new EnginePackage(EnginePackage.defaultEngineParameterMap),true);
+        Engine engine = new Engine(new EnginePackage(EnginePackage.defaultEngineParameterMap), true);
         Arena arena = new Arena(Party.p, trainer, engine, engine);
 
         if (trainer.title == Trainer.Title.VAUGHAN_DISTRICT_GYM_LEADER) {
@@ -1191,6 +1298,7 @@ public class Encounter {
         Party.smushParty();
         return playerHasWon;
     }
+
     public static boolean playTrainerBattle(Arena arena, Scanner sc1) throws InterruptedException, ExecutionException {
         Graphics.printPokemon(arena.fp[0].getName(), false, arena.fp[0].isShiny());
         System.out.println(arena.trainer.name + " sent out " + arena.fp[0].getName() + "!");
@@ -1210,27 +1318,28 @@ public class Encounter {
         int engineBestSlot = 0;
         int foeSwitchSlot = 0;
         do {
-            //graphics
+            // graphics
             displayBattleStatus(arena, true);
 
             // foe decisions
             foeMove = Fight.chooseAMove(arena, arena.fp[0], arena.p[0]);
             foeSwitchSlot = Fight.findBestPokemonSlotToHaveOutBasedOnSwitchThreshold(arena, true);
 
-            //skip player turn
+            // skip player turn
             if (arena.p[0].isSkipNextTurn()) {
                 System.out.println(arena.p[0].getName() + " is waiting this turn.\n");
                 Thread.sleep(User.textSpeed);
             }
 
-            //player decisions
+            // player decisions
             else {
                 String choice = getPlayerChoice(arena, sc1);
                 switch (choice) {
                     case "F":
                         Move engineBestMove = Fight.findBestMove(arena, arena.p[0], arena.fp[0]);
                         playerMove = Fight.askUserToChooseAMove(arena, arena.p[0], arena.fp[0], engineBestMove, sc1);
-                        if (playerMove == null) continue; // Player canceled move selection
+                        if (playerMove == null)
+                            continue; // Player canceled move selection
                         break;
 
                     case "B":
@@ -1241,15 +1350,16 @@ public class Encounter {
                         continue;
 
                     case "S":
-                        int playerSwitchSlot = Party.getSwitchSlotFromUser(arena,false, sc1);
+                        int playerSwitchSlot = Party.getSwitchSlotFromUser(arena, false, sc1);
                         playerSwitched = Party.switchPokemonToSlot(playerSwitchSlot);
-                        if (!playerSwitched) continue;
+                        if (!playerSwitched)
+                            continue;
                         else {
                             arena.p[0].setTurnSentOut(arena.turnNum);
                             Thread.sleep((long) (User.textSpeed * .75));
                             System.out.println();
                         }
-                        //Game Engine choice
+                        // Game Engine choice
                         engineBestSlot = Fight.findBestPokemonSlotToHaveOutBasedOnSwitchThreshold(arena, false);
                         break;
 
@@ -1262,23 +1372,25 @@ public class Encounter {
                         Game.pressEnterToContinue(sc1);
                         continue;
 
-                    default: continue;
+                    default:
+                        continue;
                 }
             }
 
-            //check if foe wanted to switch and switch if so desired
+            // check if foe wanted to switch and switch if so desired
             boolean foeSwitched = Fight.decideToSwitchPokemonAndDoItIfWanted(arena, true, foeSwitchSlot);
-            if(foeSwitched) foeMove = null;
+            if (foeSwitched)
+                foeMove = null;
 
-            //compare to game engine choice
+            // compare to game engine choice
 
-            //start of turn stuff
+            // start of turn stuff
             handleStatusConditionsAtBeginningOfTurn(arena);
 
             // Handle turns (normal switches & move order based on speed)
             processMoveOrder(arena, playerMove, foeMove, playerSwitched);
 
-            //Handle things like burn and poison
+            // Handle things like burn and poison
             handleEndOfTurnInteractions(arena);
 
             // Handle forced switch or defeat
@@ -1288,8 +1400,7 @@ public class Encounter {
                 playerSwitched = Party.switchPokemon(arena, false, sc1);
                 if (playerSwitched) {
                     arena.p[0].setTurnSentOut(arena.turnNum);
-                }
-                else {
+                } else {
                     System.out.println("You have no Pokémon left to fight!");
                     Game.pressEnterToContinue(sc1);
                     playerHasRunAway = true; // Forced run if no Pokémon left
@@ -1310,7 +1421,8 @@ public class Encounter {
                 } else {
                     // Force switch to next available Pokémon (even if not optimal)
                     boolean switched = Fight.decideToSwitchPokemonAndDoItIfWanted(arena, true);
-                    if (!switched) playerHasWon = true; // Only if truly no Pokémon left
+                    if (!switched)
+                        playerHasWon = true; // Only if truly no Pokémon left
                 }
             }
 
@@ -1324,16 +1436,37 @@ public class Encounter {
         doTrainerBattleOutcome(arena, playerHasWon, playerHasRunAway, sc1);
         return playerHasWon;
     }
+
     public static void unlockBadgeOrGiveNodOfRespect(Arena arena, Scanner sc1) throws InterruptedException {
         boolean isGymLeader = arena.isFacingGymLeader();
         boolean isOtherMajorTrainer = arena.isFacingMajorTrainer();
         if (isGymLeader && !User.badgesEarned.get(arena.trainer.title)) {
             User.badgesEarned.put(arena.trainer.title, true);
             Graphics.printBadge(arena.trainer.title);
-            System.out.println(arena.trainer.title.getName() + " handed you the " + arena.trainer.title.getBadgeName() + "!");
+            System.out.println(
+                    arena.trainer.title.getName() + " handed you the " + arena.trainer.title.getBadgeName() + "!");
             Sound.playSoundOnce("music/importantItemGotten.mp3");
             Thread.sleep((long) (1.5 * User.textSpeed));
             Game.pressEnterToContinue(sc1);
+
+            // PROGRESSION: Unlock Route 2 after earning first badge
+            if (User.checkNumBadges() == 1 && !User.routesReached.get(2)) {
+                User.routesReached.put(2, true);
+                System.out.println("\n🎉 Route 2 unlocked! You can now explore new areas.\n");
+                Sound.playSoundOnce("music/importantItemGotten.mp3");
+                Thread.sleep((long) (1.5 * User.textSpeed));
+                Game.pressEnterToContinue(sc1);
+            }
+
+            // PROGRESSION: Unlock Route 3 after earning Pewter Gym badge
+            if (arena.trainer.title == Trainer.Title.PEWTER_GYM_LEADER && !User.routesReached.get(3)) {
+                User.routesReached.put(3, true);
+                System.out.println("\n🎉 Route 3 unlocked! New challenges await.\n");
+                Sound.playSoundOnce("music/importantItemGotten.mp3");
+                Thread.sleep((long) (1.5 * User.textSpeed));
+                Game.pressEnterToContinue(sc1);
+            }
+
         }
         if (isOtherMajorTrainer && !User.majorTrainersBeaten.get(arena.trainer.title)) {
             User.majorTrainersBeaten.put(arena.trainer.title, true);
@@ -1342,18 +1475,22 @@ public class Encounter {
             Game.pressEnterToContinue(sc1);
         }
     }
-    public static void givePlayerMoneyAfterBeatingTrainer(Arena arena, double rewardMultiplier) throws InterruptedException {
+
+    public static void givePlayerMoneyAfterBeatingTrainer(Arena arena, double rewardMultiplier)
+            throws InterruptedException {
         int moneyReward = (int) (rewardMultiplier * arena.trainer.prize * (User.checkNumBadges() / 2.0))
-                + (int) (Math.random()*100 + Math.random()*10*User.checkNumBadges());
+                + (int) (Math.random() * 100 + Math.random() * 10 * User.checkNumBadges());
         System.out.println("You earned " + moneyReward + " Pokedollars!\n");
         Bag.adjustPokedollarBalance(moneyReward);
     }
-    public static void doTrainerBattleOutcome(Arena arena, boolean playerHasWon, boolean playerHasRunAway, Scanner sc1) throws InterruptedException {
+
+    public static void doTrainerBattleOutcome(Arena arena, boolean playerHasWon, boolean playerHasRunAway, Scanner sc1)
+            throws InterruptedException {
         if (playerHasWon) {
             Sound.stopAllSounds();
             Sound.playMusicOnLoop("music/victoryVsTrainerTheme.mp3");
             double rewardMultiplier = 1.0;
-            if((arena.isFacingGymLeader() && User.badgesEarned.get(arena.trainer.title))
+            if ((arena.isFacingGymLeader() && User.badgesEarned.get(arena.trainer.title))
                     || (arena.isFacingMajorTrainer() && User.majorTrainersBeaten.get(arena.trainer.title))) {
                 rewardMultiplier = .1;
             }
@@ -1366,8 +1503,8 @@ public class Encounter {
             Party.levelUpEntirePartyByOne();
             givePlayerMoneyAfterBeatingTrainer(arena, rewardMultiplier);
         } else if (playerHasRunAway) {
-            int losses = (int) Math.min(1000, (Bag.getPokedollars()*.05));
-            System.out.println("You lost " +  losses + " Pokedollars to " + arena.trainer.name +"...");
+            int losses = (int) Math.min(1000, (Bag.getPokedollars() * .05));
+            System.out.println("You lost " + losses + " Pokedollars to " + arena.trainer.name + "...");
             Bag.spendPokedollarsSilent(losses);
         }
         Party.resetPartyAfterBattle();

@@ -3,57 +3,71 @@ package pokemonTextBased;
 import java.util.*;
 
 public class User {
-    //general
+    // general
     public static String username = "Cyan";
+
     public enum Gender {
         BOY("boy"),
         GIRL("girl");
+
         public final String genderString;
 
         Gender(String genderString) {
             this.genderString = genderString;
         }
     }
+
     public static Gender gender = Gender.BOY;
     public static int textSpeed = 2000;
-    public enum Difficulty{
+
+    public enum Difficulty {
         EASY("EASY"),
         NORMAL("NORMAL"),
         CHALLENGE("CHALLENGE"),
         PROFESSIONAL("PROFESSIONAL");
+
         public final String str;
+
         Difficulty(String str) {
             this.str = str;
         }
-        public String getStr(){
+
+        public String getStr() {
             return this.str;
         }
     }
+
     public static Difficulty difficultyMode = Difficulty.CHALLENGE;
+
     public enum Hints {
         NO_HINTS("NO_HINTS", "NO HINTS"),
         SHOW_EFFECTIVENESS("SHOW_EFFECTIVENESS", "SHOW EFFECTIVENESS"),
         SHOW_ENGINE_CHOICES("SHOW_ENGINE_CHOICES", "SHOW ENGINE ANALYSIS");
+
         public final String str;
         public final String description;
-        Hints (String str, String description) {
+
+        Hints(String str, String description) {
             this.str = str;
             this.description = description;
         }
-        public String getStr(){
+
+        public String getStr() {
             return this.str;
         }
-        public String getDescription(){
+
+        public String getDescription() {
             return this.description;
         }
     }
+
     public static Hints hintMode = Hints.SHOW_ENGINE_CHOICES;
-    //progression
+    // progression
     public static int reputation = 0;
     public static int recordColosseumTrainersBeaten = 0;
-    //logs
+    // logs
     public static ArrayList<String> tradeHistory = new ArrayList<>();
-    //trainers
+    // trainers
     public static Map<Trainer.Title, Boolean> badgesEarned = new TreeMap<>();
     static {
         badgesEarned.put(Trainer.Title.PEWTER_GYM_LEADER, false);
@@ -81,17 +95,17 @@ public class User {
             trainersBeatenOnARoute.put(i, 0);
         }
     }
-    //locations
+    // locations
     public static Map<Integer, Boolean> routesReached = new TreeMap<>();
     static {
         for (int i = 1; i <= 25; i++) {
-            routesReached.put(i, i == 7 || i == 16 || i == 1);
+            routesReached.put(i, i == 1);
         }
     }
     public static Map<Location.Area, Boolean> areasReached = new TreeMap<>();
     static {
-        //cities
-        areasReached.put(Location.Area.PALLET_TOWN, true); //starts here
+        // cities
+        areasReached.put(Location.Area.PALLET_TOWN, true); // starts here
         areasReached.put(Location.Area.VIRIDIAN_CITY, false);
         areasReached.put(Location.Area.PEWTER_CITY, false);
         areasReached.put(Location.Area.CERULEAN_CITY, false);
@@ -100,10 +114,10 @@ public class User {
         areasReached.put(Location.Area.SAFFRON_CITY, false);
         areasReached.put(Location.Area.FUCHSIA_CITY, false);
         areasReached.put(Location.Area.CINNABAR_ISLAND, false);
-        areasReached.put(Location.Area.ROCKETOPOLIS, true); //unlocked from the get-go
-        areasReached.put(Location.Area.VAUGHAN_DISTRICT, true); // ^
-        areasReached.put(Location.Area.CITY_CENTER, true); // ^
-        //Other POIs
+        areasReached.put(Location.Area.ROCKETOPOLIS, false);
+        areasReached.put(Location.Area.VAUGHAN_DISTRICT, false);
+        areasReached.put(Location.Area.CITY_CENTER, false);
+        // Other POIs
         areasReached.put(Location.Area.VIRIDIAN_FOREST, false);
         areasReached.put(Location.Area.MT_MOON, false);
         areasReached.put(Location.Area.ROCK_TUNNEL, false);
@@ -117,103 +131,91 @@ public class User {
         areasReached.put(Location.Area.INDIGO_PLATEAU, false);
         areasReached.put(Location.Area.CERULEAN_CAVE, false);
     }
-    //POKEDEX PROGRESS
+    // POKEDEX PROGRESS
     public static ArrayList<String> pokemonRegisteredInPokedex = new ArrayList<>();
 
-    //general methods
+    // general methods
     public static String getUsername() {
         return username;
     }
+
     public static void setUsername(String newUsername) {
         username = newUsername;
     }
+
     public static void setGender(Gender newGender) {
         if (newGender == null) {
             throw new IllegalArgumentException("Gender cannot be null");
         }
         gender = newGender;
     }
-    public static Gender getGender(){
+
+    public static Gender getGender() {
         return gender;
     }
-    public static String getYouAreKnownAs(){
+
+    public static String getYouAreKnownAs() {
         String alignment = "";
         String status = "";
         String article = "a ";
-        //alignment
-        if(reputation >= -10 && reputation <= 10){
+        // alignment
+        if (reputation >= -10 && reputation <= 10) {
             alignment = "";
-        }
-        else if(reputation >= 11  && reputation < 50){
+        } else if (reputation >= 11 && reputation < 50) {
             alignment = "respectable, ";
-        }
-        else if(reputation >= 51  && reputation < 100){
+        } else if (reputation >= 51 && reputation < 100) {
             alignment = "likeable, ";
-        }
-        else if(reputation >= 101  && reputation < 250){
+        } else if (reputation >= 101 && reputation < 250) {
             article = "an ";
             alignment = "admirable, ";
-        }
-        else if(reputation >= 251  && reputation < 400){
+        } else if (reputation >= 251 && reputation < 400) {
             alignment = "benevolent, ";
-        }
-        else if(reputation >= 401 ){
+        } else if (reputation >= 401) {
             alignment = "sainted,  ";
-        }
-        else if(reputation>= -50 && reputation <= -11){
+        } else if (reputation >= -50 && reputation <= -11) {
             alignment = "hardened, ";
-        }
-        else if(reputation>= -100 && reputation <= -51){
+        } else if (reputation >= -100 && reputation <= -51) {
             alignment = "scummy, ";
-        }
-        else if(reputation>= -150 && reputation <= -101){
+        } else if (reputation >= -150 && reputation <= -101) {
             alignment = "sleazy, ";
-        }
-        else if(reputation>= -200 && reputation <= -151){
+        } else if (reputation >= -200 && reputation <= -151) {
             alignment = "morally corrupt ";
-        }
-        else if(reputation>= -250 && reputation <= -201){
+        } else if (reputation >= -250 && reputation <= -201) {
             alignment = "rotten, ";
-        }
-        else if(reputation>= -300 && reputation <= -251){
+        } else if (reputation >= -300 && reputation <= -251) {
             alignment = "despicable, ";
-        }
-        else if(reputation <= -301){
+        } else if (reputation <= -301) {
             alignment = "downright evil, ";
         }
-        //status
-        if(checkNumBadges() == 0){
+        // status
+        if (checkNumBadges() == 0) {
             alignment = "";
             status = "nobody";
-        }
-        else if(checkNumBadges() <= 2){
-            if(alignment.isEmpty()) article = "an ";
+        } else if (checkNumBadges() <= 2) {
+            if (alignment.isEmpty())
+                article = "an ";
             status = "aspiring Pokemon trainer";
-        }
-        else if(checkNumBadges() == 3){
+        } else if (checkNumBadges() == 3) {
             status = "mediocre Pokemon trainer";
-        }
-        else if(checkNumBadges() == 4){
+        } else if (checkNumBadges() == 4) {
             status = "solid Pokemon trainer";
-        }
-        else if(checkNumBadges() <= 5){
+        } else if (checkNumBadges() <= 5) {
             status = "talented Pokemon trainer";
-        }
-        else if(checkNumBadges() <= 7){
+        } else if (checkNumBadges() <= 7) {
             status = "gifted Pokemon trainer";
-        }
-        else if(checkNumBadges() == 8){
+        } else if (checkNumBadges() == 8) {
             status = "masterful Pokemon trainer";
-        }
-        else {
+        } else {
             status = "godlike trainer of Pokemon";
         }
         return article + alignment + status + ".";
     }
+
     public static void setDifficulty(Difficulty difficulty) {
         difficultyMode = difficulty;
     }
-    //progression methods
+
+    // progression methods
     public static void unlockEverything() {
         // Unlock all badges
         badgesEarned.replaceAll((t, v) -> true);
@@ -233,8 +235,9 @@ public class User {
 
         System.out.println("Everything unlocked! God mode activated.");
     }
-    public static int checkLevelCap(){
-        switch(checkNumBadges()) {
+
+    public static int checkLevelCap() {
+        switch (checkNumBadges()) {
             case 0 -> {
                 return 20;
             }
@@ -271,11 +274,19 @@ public class User {
         }
         return 36;
     }
-    public static void increaseReputation(int reputationIncrease){reputation += reputationIncrease;}
-    public static void decreaseReputation(int reputationDecrease){reputation -= reputationDecrease;}
+
+    public static void increaseReputation(int reputationIncrease) {
+        reputation += reputationIncrease;
+    }
+
+    public static void decreaseReputation(int reputationDecrease) {
+        reputation -= reputationDecrease;
+    }
+
     public static boolean hasBadge(Trainer.Title title) {
         return badgesEarned.getOrDefault(title, false);
     }
+
     public static int checkNumBadges() {
         int count = 0;
         for (boolean earned : badgesEarned.values()) {
@@ -285,24 +296,27 @@ public class User {
         }
         return count;
     }
+
     public static void unlockRoute(int routeNumber) {
         if (routesReached.containsKey(routeNumber)) {
             routesReached.put(routeNumber, true);
         }
     }
+
     public static String getMonth() {
         int badgeNum = checkNumBadges();
-        String[] months = {"February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-        if(badgeNum >= 0 && badgeNum <= 10) {
+        String[] months = { "February", "March", "April", "May", "June", "July", "August", "September", "October",
+                "November", "December" };
+        if (badgeNum >= 0 && badgeNum <= 10) {
             return months[badgeNum];
         }
         return "Date NA";
     }
 
-    //change player info menus
-    public static int getTextSpeed(Scanner sc1){
+    // change player info menus
+    public static int getTextSpeed(Scanner sc1) {
         int textSpeed = 0;
-        while(true) {
+        while (true) {
             System.out.println("      Please select a text speed:");
             System.out.println("=======================================");
             System.out.println(" [1] Instant (animations will not play)");
@@ -311,7 +325,7 @@ public class User {
             System.out.println(" [4] Slowest");
             try {
                 int input = sc1.nextInt();
-                switch(input) {
+                switch (input) {
                     case 1:
                         textSpeed = 200; // Instant
                         break;
@@ -338,9 +352,10 @@ public class User {
         User.textSpeed = textSpeed;
         return textSpeed;
     }
+
     public static void askUserToSetDifficulty(Scanner sc1) {
-        String choice= " ";
-        while(true){
+        String choice = " ";
+        while (true) {
             System.out.println("                  SELECT DIFFICULTY");
             System.out.println("===================================================");
             System.out.println("| [1] NORMAL                                      |");
@@ -370,31 +385,32 @@ public class User {
             System.out.println("|      Difficulty can be changed at any time.     |");
             System.out.println("|-------------------------------------------------|");
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("1")){
+            if (choice.equals("1")) {
                 setDifficulty(Difficulty.NORMAL);
             }
-            if(choice.equals("2")){
+            if (choice.equals("2")) {
                 setDifficulty(Difficulty.CHALLENGE);
             }
-            if(choice.equals("3")){
+            if (choice.equals("3")) {
                 setDifficulty(Difficulty.PROFESSIONAL);
             }
-            if(choice.equals("4")){
+            if (choice.equals("4")) {
                 setDifficulty(Difficulty.EASY);
             }
-            if(choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4")) {
-                    System.out.println("Difficulty has been set to " + User.difficultyMode.getStr() + ".");
-                    Game.pressEnterToContinue();
-                    break;
+            if (choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4")) {
+                System.out.println("Difficulty has been set to " + User.difficultyMode.getStr() + ".");
+                Game.pressEnterToContinue();
+                break;
             } else {
                 System.out.println("Invalid choice. Please select a difficulty.");
                 Game.pressEnterToContinue(sc1);
             }
         }
     }
+
     public static void askUserToSetHints(Scanner sc1) {
-        String choice= " ";
-        while(true){
+        String choice = " ";
+        while (true) {
             System.out.println("               SELECT BATTLE HINT MODE");
             System.out.println("====================================================");
             System.out.println("| [1] NO HINTS                                     |");
@@ -404,16 +420,16 @@ public class User {
             System.out.println("| [3] SHOW LIVE GAME ENGINE ANALYSIS (RECOMMENDED) |");
             System.out.println("----------------------------------------------------");
             choice = sc1.nextLine().trim().toUpperCase();
-            if(choice.equals("1")){
+            if (choice.equals("1")) {
                 hintMode = Hints.NO_HINTS;
             }
-            if(choice.equals("2")){
+            if (choice.equals("2")) {
                 hintMode = Hints.SHOW_EFFECTIVENESS;
             }
-            if(choice.equals("3")){
+            if (choice.equals("3")) {
                 hintMode = Hints.SHOW_ENGINE_CHOICES;
             }
-            if(choice.equals("1") || choice.equals("2") || choice.equals("3")) {
+            if (choice.equals("1") || choice.equals("2") || choice.equals("3")) {
                 System.out.println("HINT MODE has been set to " + User.hintMode.getDescription() + ".");
                 Game.pressEnterToContinue();
                 break;
@@ -423,6 +439,7 @@ public class User {
             }
         }
     }
+
     public static String askForUsername(Scanner sc1) {
         System.out.print("Enter your name: ");
         String username;
@@ -430,8 +447,7 @@ public class User {
             username = sc1.nextLine().trim();
             if (!username.isEmpty() && username.length() < 16) {
                 return username;
-            }
-            else if (username.length() >= 16) {
+            } else if (username.length() >= 16) {
                 System.out.print("Name too long (max 15 characters). Please enter a valid name: ");
             }
             System.out.print("Invalid input. Please enter a valid name: ");

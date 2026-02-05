@@ -1699,6 +1699,26 @@ public class Location {
                             .enterTrainerBattle(Encounter.getTrainerInArea("Route " + routeNum), sc1);
                     if (playerBeatATrainer) {
                         User.trainersBeatenOnARoute.put(routeNum, User.trainersBeatenOnARoute.get(routeNum) + 1);
+
+                        // PROGRESSION: Unlock Viridian City after beating 3 trainers on Route 1
+                        if (routeNum == 1 && User.trainersBeatenOnARoute.get(1) >= 3
+                                && !User.areasReached.get(Area.VIRIDIAN_CITY)) {
+                            User.areasReached.put(Area.VIRIDIAN_CITY, true);
+                            System.out.println("\n🎉 Viridian City unlocked! You can now travel there from the map.\n");
+                            Sound.playSoundOnce("music/importantItemGotten.mp3");
+                            Thread.sleep((long) (1.5 * User.textSpeed));
+                            Game.pressEnterToContinue(sc1);
+                        }
+
+                        // PROGRESSION: Unlock Route 4 after beating 3 trainers on Route 3
+                        if (routeNum == 3 && User.trainersBeatenOnARoute.get(3) >= 3
+                                && !User.routesReached.get(4)) {
+                            User.routesReached.put(4, true);
+                            System.out.println("\n🎉 Route 4 unlocked! The journey continues.\n");
+                            Sound.playSoundOnce("music/importantItemGotten.mp3");
+                            Thread.sleep((long) (1.5 * User.textSpeed));
+                            Game.pressEnterToContinue(sc1);
+                        }
                     }
                     break;
                 case "I":
