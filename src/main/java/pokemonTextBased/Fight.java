@@ -2,6 +2,19 @@ package pokemonTextBased;
 
 import java.util.*;
 public class Fight {
+    private record TypingChallengeResult(double damageMultiplier, int progressPercent, String prompt) {
+    }
+
+    private static final String[] TYPING_UNLOCK_ORDER = {
+            "a", "s", "d", "f", "j", "k", "l", "e", "i", "o",
+            "r", "n", "t", "h", "g", "u", "w", "y", "p", "q",
+            "c", "m", "x", "b", "v", "z", "/",
+            ".", ",", "!", "?", "'", "\"", ":",
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+            "-", "(", ")"
+    };
+
+
     public static Move askUserToChooseAMove(Arena arena, Pokemon dealer, Pokemon recipient, Move engineMove, Scanner sc1) {
         Move moveToUse = null;
         boolean choiceToGoBack = false;
@@ -22,6 +35,12 @@ public class Fight {
                         if (!moveToUse.canUseMove()) {
                             System.out.println("Cannot use " + moveToUse.getName() + " — no PP remaining!");
                             moveToUse = null;
+                        } else {
+                            TypingChallengeResult challengeResult = runTypingChallenge(sc1);
+                            arena.playerMoveDamageMultiplier = challengeResult.damageMultiplier();
+                            System.out.println("Typing challenge prompt: " + challengeResult.prompt());
+                            System.out.printf("Typing accuracy: %d%% | Damage multiplier: %.2fx%n%n",
+                                    challengeResult.progressPercent(), challengeResult.damageMultiplier());
                         }
                     } else {
                         System.out.println("Invalid choice! Please enter a number between 1 and " + availableMoves.size() + ".\n");
@@ -83,6 +102,162 @@ public class Fight {
         }
         System.out.println("[B] Back");
     }
+
+    private static TypingChallengeResult runTypingChallenge(Scanner sc1) {
+        int badges = User.checkNumBadges();
+        String prompt = buildTypingPromptForProgression(badges);
+        System.out.println("Type the sequence below exactly, then press Enter:");
+        System.out.println("  " + prompt);
+        String typed = sc1.nextLine();
+        int correctCharacters = 0;
+        int maxComparableLength = Math.min(prompt.length(), typed.length());
+        for (int i = 0; i < maxComparableLength; i++) {
+            if (prompt.charAt(i) == typed.charAt(i)) {
+                correctCharacters++;
+            }
+        }
+        int progressPercent = (int) Math.round((correctCharacters * 100.0) / prompt.length());
+        double multiplier = getDamageMultiplierFromTyping(progressPercent);
+        return new TypingChallengeResult(multiplier, progressPercent, prompt);
+    }
+
+    private static String buildTypingPromptForProgression(int badges) {
+        int progressionScore = getTypingProgressionScore(badges);
+        List<String> unlockedCharacters = getUnlockedTypingCharacters(progressionScore);
+        Set<Character> unlockedSet = getUnlockedCharacterSet(unlockedCharacters);
+
+        String prompt = buildWordPrompt(unlockedCharacters, unlockedSet);
+        if (prompt == null) {
+            return buildFallbackCharacterPrompt(unlockedCharacters);
+        }
+
+        List<String> typeableSentences = getTypeableSentences(unlockedSet);
+        boolean sentenceModeUnlocked = unlockedCharacters.size() >= 20;
+        boolean shouldUseSentence = sentenceModeUnlocked && !typeableSentences.isEmpty() && Math.random() < 0.35;
+        if (shouldUseSentence) {
+            Random random = new Random();
+            prompt = typeableSentences.get(random.nextInt(typeableSentences.size()));
+        }
+
+        List<String> punctuation = getUnlockedPunctuation(unlockedCharacters);
+        if (!punctuation.isEmpty() && !prompt.endsWith("!")) {
+            Random random = new Random();
+            prompt = prompt + punctuation.get(random.nextInt(punctuation.size()));
+        }
+        return prompt;
+    }
+
+    private static int getTypingProgressionScore(int badges) {
+        int unlockedRoutes = (int) User.routesReached.values().stream().filter(Boolean::booleanValue).count();
+        int unlockedAreas = (int) User.areasReached.values().stream().filter(Boolean::booleanValue).count();
+        int trainerWins = User.trainersBeatenOnARoute.values().stream().mapToInt(Integer::intValue).sum();
+        int trainerProgress = Math.min(20, trainerWins / 2);
+        return (badges * 4) + Math.max(0, unlockedRoutes - 1) + Math.max(0, unlockedAreas - 1) + trainerProgress;
+    }
+
+    private static List<String> getUnlockedTypingCharacters(int progressionScore) {
+        int baseCharacterCount = 6;
+        int unlockedCharacterCount = Math.min(TYPING_UNLOCK_ORDER.length, baseCharacterCount + Math.max(0, progressionScore));
+        List<String> unlockedCharacters = new ArrayList<>();
+        Collections.addAll(unlockedCharacters, Arrays.copyOfRange(TYPING_UNLOCK_ORDER, 0, unlockedCharacterCount));
+        return unlockedCharacters;
+    }
+
+    private static Set<Character> getUnlockedCharacterSet(List<String> unlockedCharacters) {
+        Set<Character> unlockedSet = new HashSet<>();
+        for (String character : unlockedCharacters) {
+            unlockedSet.add(character.charAt(0));
+        }
+        return unlockedSet;
+    }
+
+    private static String buildWordPrompt(List<String> unlockedCharacters, Set<Character> unlockedSet) {
+        List<String> typeableWords = getTypeableWords(unlockedSet);
+        if (typeableWords.isEmpty()) {
+            return null;
+        }
+
+        int wordCount = Math.min(6, 2 + (unlockedCharacters.size() / 8));
+        StringBuilder prompt = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < wordCount; i++) {
+            if (i > 0) {
+                prompt.append(" ");
+            }
+            prompt.append(typeableWords.get(random.nextInt(typeableWords.size())));
+        }
+        return prompt.toString();
+    }
+
+    private static List<String> getTypeableWords(Set<Character> unlockedSet) {
+        List<String> words = new ArrayList<>();
+        for (String word : TypingPromptRepository.getWords()) {
+            if (canTypeText(word, unlockedSet)) {
+                words.add(word);
+            }
+        }
+        return words;
+    }
+
+    private static List<String> getTypeableSentences(Set<Character> unlockedSet) {
+        List<String> sentences = new ArrayList<>();
+        for (String sentence : TypingPromptRepository.getSentences()) {
+            if (canTypeText(sentence, unlockedSet)) {
+                sentences.add(sentence);
+            }
+        }
+        return sentences;
+    }
+
+    private static List<String> getUnlockedPunctuation(List<String> unlockedCharacters) {
+        List<String> punctuation = new ArrayList<>();
+        List<String> prioritizedPunctuation = List.of(".", ",", "!", "?", "\"", "'", ":", "-", "(", ")");
+        for (String symbol : prioritizedPunctuation) {
+            if (unlockedCharacters.contains(symbol)) {
+                punctuation.add(symbol);
+            }
+        }
+        return punctuation;
+    }
+
+    private static String buildFallbackCharacterPrompt(List<String> unlockedCharacters) {
+        int sequenceLength = 6 + (unlockedCharacters.size() / 4);
+        StringBuilder prompt = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < sequenceLength; i++) {
+            prompt.append(unlockedCharacters.get(random.nextInt(unlockedCharacters.size())));
+        }
+        return prompt.toString();
+    }
+
+    private static boolean canTypeText(String text, Set<Character> unlockedSet) {
+        for (char currentChar : text.toCharArray()) {
+            if (currentChar == ' ') {
+                continue;
+            }
+            if (!unlockedSet.contains(Character.toLowerCase(currentChar))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static double getDamageMultiplierFromTyping(int progressPercent) {
+        if (progressPercent >= 95) {
+            return 1.40;
+        }
+        if (progressPercent >= 85) {
+            return 1.20;
+        }
+        if (progressPercent >= 70) {
+            return 1.00;
+        }
+        if (progressPercent >= 50) {
+            return 0.80;
+        }
+        return 0.60;
+    }
+
     public static void useMove(Arena arena, Move move, Pokemon dealer, Pokemon recipient) throws InterruptedException {
         if (move == null) return;
         Move moveToUse = null;
@@ -182,6 +357,7 @@ public class Fight {
         double power = moveToUse.getDamage();
         double lvlMult = ((2.0 * dealer.getLevel())/5.0) + 2.0;
         double weather = getWeatherMultiplier(arena, moveToUse, dealer);
+        double playerTypingMultiplier = (dealer == arena.p[0]) ? arena.playerMoveDamageMultiplier : 1.0;
         double dmg; //damage that will be calculated to be done to the recipient
         if(moveToUse.getName().equalsIgnoreCase("Water Spout") || moveToUse.getName().equalsIgnoreCase("Eruption")) {
             eruptionOrWaterSpout = (double) dealer.getCurrentHp()/dealer.getCurrentMaxHp();
@@ -199,7 +375,7 @@ public class Fight {
             eAtk = dealer.getCurrentAttack() * dealer.getStatMultiplier("Attack") * burnMult;
             eDef = recipient.getCurrentDefense() * recipient.getStatMultiplier("Defense");
         }
-        dmg = (((lvlMult * power * (eAtk/eDef)) / 50.0) * crit) * weather * sTAB * t1Eff * t2Eff * eruptionOrWaterSpout * dmgRoll;
+        dmg = (((lvlMult * power * (eAtk/eDef)) / 50.0) * crit) * weather * sTAB * t1Eff * t2Eff * eruptionOrWaterSpout * dmgRoll * playerTypingMultiplier;
         if (arena.playerEngine.battleDialogsAreEnabled && crit == 1.5 && dmg != 0) {
             System.out.println("A critical hit!\n");
             Thread.sleep(User.textSpeed);

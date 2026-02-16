@@ -19,6 +19,7 @@ public class Arena {
     public Trainer trainer;
     public Engine playerEngine;
     public Engine foeEngine;
+    public double playerMoveDamageMultiplier;
 
     public Arena(Pokemon[] p, Pokemon[] fp, Engine playerEngine, Engine foeEngine) {
         // Initialize battle state
@@ -31,6 +32,7 @@ public class Arena {
         this.fp = fp;
         this.playerEngine = playerEngine;
         this.foeEngine = foeEngine;
+        this.playerMoveDamageMultiplier = 1.0;
     }
     public Arena(Pokemon[] p, Pokemon[] fp, Trainer trainer, Engine playerEngine, Engine foeEngine) {
         // Initialize battle state
@@ -44,6 +46,7 @@ public class Arena {
         this.trainer = trainer;
         this.playerEngine = playerEngine;
         this.foeEngine = foeEngine;
+        this.playerMoveDamageMultiplier = 1.0;
     }
     public Arena(Pokemon[] p, Trainer trainer, Engine playerEngine, Engine foeEngine) {
         // Initialize battle state
@@ -62,6 +65,7 @@ public class Arena {
         this.trainer = trainer;
         this.playerEngine = playerEngine;
         this.foeEngine = foeEngine;
+        this.playerMoveDamageMultiplier = 1.0;
 
     }
 
