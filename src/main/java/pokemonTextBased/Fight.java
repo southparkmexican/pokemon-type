@@ -2,8 +2,22 @@ package pokemonTextBased;
 
 import java.util.*;
 public class Fight {
-    private record TypingChallengeResult(double damageMultiplier, int progressPercent, String prompt) {
+    private record TypingChallengeResult(
+            double damageMultiplier,
+            double accuracyMultiplier,
+            double speedMultiplier,
+            int progressPercent,
+            int wordsPerMinute,
+            String prompt) {
     }
+
+    private static int typingChallengeCount = 0;
+    private static int lifetimeCharactersTyped = 0;
+    private static int lifetimeCorrectCharacters = 0;
+    private static int lifetimeWordsTyped = 0;
+    private static double lifetimeMinutesSpentTyping = 0.0;
+    private static int personalBestWpm = 0;
+    private static int personalBestAccuracy = 0;
 
     private static final String[] TYPING_UNLOCK_ORDER = {
             "a", "s", "d", "f", "j", "k", "l", "e", "i", "o",
@@ -16,6 +30,9 @@ public class Fight {
 
 
     public static Move askUserToChooseAMove(Arena arena, Pokemon dealer, Pokemon recipient, Move engineMove, Scanner sc1) {
+        arena.playerMoveDamageMultiplier = 1.0;
+        arena.playerMoveAccuracyMultiplier = 1.0;
+        arena.playerMoveSpeedMultiplier = 1.0;
         Move moveToUse = null;
         boolean choiceToGoBack = false;
         do {
@@ -36,11 +53,16 @@ public class Fight {
                             System.out.println("Cannot use " + moveToUse.getName() + " — no PP remaining!");
                             moveToUse = null;
                         } else {
-                            TypingChallengeResult challengeResult = runTypingChallenge(sc1);
+                            TypingChallengeResult challengeResult = runTypingChallenge(sc1, moveToUse, arena);
                             arena.playerMoveDamageMultiplier = challengeResult.damageMultiplier();
+                            arena.playerMoveAccuracyMultiplier = challengeResult.accuracyMultiplier();
+                            arena.playerMoveSpeedMultiplier = challengeResult.speedMultiplier();
                             System.out.println("Typing challenge prompt: " + challengeResult.prompt());
-                            System.out.printf("Typing accuracy: %d%% | Damage multiplier: %.2fx%n%n",
-                                    challengeResult.progressPercent(), challengeResult.damageMultiplier());
+                            System.out.printf("Typing accuracy: %d%% | WPM: %d | Damage: %.2fx | Accuracy: %.2fx | Speed: %.2fx%n",
+                                    challengeResult.progressPercent(), challengeResult.wordsPerMinute(),
+                                    challengeResult.damageMultiplier(), challengeResult.accuracyMultiplier(), challengeResult.speedMultiplier());
+                            System.out.println(getTypingProgressSummary());
+                            System.out.println();
                         }
                     } else {
                         System.out.println("Invalid choice! Please enter a number between 1 and " + availableMoves.size() + ".\n");
@@ -103,12 +125,16 @@ public class Fight {
         System.out.println("[B] Back");
     }
 
-    private static TypingChallengeResult runTypingChallenge(Scanner sc1) {
+    private static TypingChallengeResult runTypingChallenge(Scanner sc1, Move moveToUse, Arena arena) {
         int badges = User.checkNumBadges();
-        String prompt = buildTypingPromptForProgression(badges);
+        String prompt = buildTypingPromptForProgression(badges, moveToUse);
         System.out.println("Type the sequence below exactly, then press Enter:");
         System.out.println("  " + prompt);
+
+        long startNano = System.nanoTime();
         String typed = sc1.nextLine();
+        long elapsedNano = Math.max(1, System.nanoTime() - startNano);
+
         int correctCharacters = 0;
         int maxComparableLength = Math.min(prompt.length(), typed.length());
         for (int i = 0; i < maxComparableLength; i++) {
@@ -116,27 +142,37 @@ public class Fight {
                 correctCharacters++;
             }
         }
+
         int progressPercent = (int) Math.round((correctCharacters * 100.0) / prompt.length());
-        double multiplier = getDamageMultiplierFromTyping(progressPercent);
-        return new TypingChallengeResult(multiplier, progressPercent, prompt);
+        int wordsInPrompt = Math.max(1, prompt.trim().split("\\s+").length);
+        double minutesSpent = elapsedNano / 60_000_000_000.0;
+        int wordsPerMinute = (int) Math.round(wordsInPrompt / minutesSpent);
+
+        updateTypingProgressTracking(arena, prompt.length(), correctCharacters, wordsInPrompt, minutesSpent, wordsPerMinute,
+                progressPercent);
+
+        double damageMultiplier = getDamageMultiplierFromTyping(progressPercent);
+        double accuracyMultiplier = getAccuracyMultiplierFromTyping(progressPercent);
+        double speedMultiplier = getSpeedMultiplierFromTyping(wordsPerMinute);
+        return new TypingChallengeResult(damageMultiplier, accuracyMultiplier, speedMultiplier, progressPercent,
+                wordsPerMinute, prompt);
     }
 
-    private static String buildTypingPromptForProgression(int badges) {
+    private static String buildTypingPromptForProgression(int badges, Move moveToUse) {
         int progressionScore = getTypingProgressionScore(badges);
         List<String> unlockedCharacters = getUnlockedTypingCharacters(progressionScore);
         Set<Character> unlockedSet = getUnlockedCharacterSet(unlockedCharacters);
 
-        String prompt = buildWordPrompt(unlockedCharacters, unlockedSet);
+        String prompt = buildWordPrompt(unlockedCharacters, unlockedSet, moveToUse);
         if (prompt == null) {
-            return buildFallbackCharacterPrompt(unlockedCharacters);
+            return buildFallbackCharacterPrompt(unlockedCharacters, moveToUse);
         }
 
         List<String> typeableSentences = getTypeableSentences(unlockedSet);
-        boolean sentenceModeUnlocked = unlockedCharacters.size() >= 20;
-        boolean shouldUseSentence = sentenceModeUnlocked && !typeableSentences.isEmpty() && Math.random() < 0.35;
+        boolean sentenceModeUnlocked = unlockedCharacters.size() >= 18;
+        boolean shouldUseSentence = sentenceModeUnlocked && !typeableSentences.isEmpty() && shouldUseSentenceChallenge(moveToUse);
         if (shouldUseSentence) {
-            Random random = new Random();
-            prompt = typeableSentences.get(random.nextInt(typeableSentences.size()));
+            prompt = buildSentencePrompt(typeableSentences, moveToUse);
         }
 
         List<String> punctuation = getUnlockedPunctuation(unlockedCharacters);
@@ -171,13 +207,13 @@ public class Fight {
         return unlockedSet;
     }
 
-    private static String buildWordPrompt(List<String> unlockedCharacters, Set<Character> unlockedSet) {
+    private static String buildWordPrompt(List<String> unlockedCharacters, Set<Character> unlockedSet, Move moveToUse) {
         List<String> typeableWords = getTypeableWords(unlockedSet);
         if (typeableWords.isEmpty()) {
             return null;
         }
 
-        int wordCount = Math.min(6, 2 + (unlockedCharacters.size() / 8));
+        int wordCount = getTargetWordCountForMove(moveToUse, unlockedCharacters.size());
         StringBuilder prompt = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < wordCount; i++) {
@@ -220,8 +256,8 @@ public class Fight {
         return punctuation;
     }
 
-    private static String buildFallbackCharacterPrompt(List<String> unlockedCharacters) {
-        int sequenceLength = 6 + (unlockedCharacters.size() / 4);
+    private static String buildFallbackCharacterPrompt(List<String> unlockedCharacters, Move moveToUse) {
+        int sequenceLength = Math.max(6, getTargetWordCountForMove(moveToUse, unlockedCharacters.size()) * 5);
         StringBuilder prompt = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < sequenceLength; i++) {
@@ -240,6 +276,129 @@ public class Fight {
             }
         }
         return true;
+    }
+
+    private static boolean shouldUseSentenceChallenge(Move moveToUse) {
+        if (moveToUse == null) {
+            return false;
+        }
+        int damage = moveToUse.getDamage();
+        if (damage >= 120) {
+            return true;
+        }
+        if (damage >= 90) {
+            return Math.random() < 0.65;
+        }
+        if (damage >= 60) {
+            return Math.random() < 0.25;
+        }
+        return false;
+    }
+
+    private static String buildSentencePrompt(List<String> typeableSentences, Move moveToUse) {
+        int sentenceTarget = getTargetSentenceCountForMove(moveToUse);
+        StringBuilder builder = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < sentenceTarget; i++) {
+            if (i > 0) {
+                builder.append(" ");
+            }
+            builder.append(typeableSentences.get(random.nextInt(typeableSentences.size())));
+        }
+        return builder.toString();
+    }
+
+    private static int getTargetWordCountForMove(Move moveToUse, int unlockedCharacterCount) {
+        int baseCount = 2 + (unlockedCharacterCount / 10);
+        if (moveToUse == null || moveToUse.getDamage() == 0) {
+            return Math.max(3, baseCount);
+        }
+        int damage = moveToUse.getDamage();
+        if (damage <= 50) {
+            return Math.max(4, baseCount + 1);
+        }
+        if (damage <= 80) {
+            return Math.max(7, baseCount + 3);
+        }
+        if (damage <= 110) {
+            return Math.max(11, baseCount + 6);
+        }
+        return Math.max(16, baseCount + 10);
+    }
+
+    private static int getTargetSentenceCountForMove(Move moveToUse) {
+        if (moveToUse == null) {
+            return 1;
+        }
+        int damage = moveToUse.getDamage();
+        if (damage >= 130) {
+            return 4;
+        }
+        if (damage >= 100) {
+            return 3;
+        }
+        return 2;
+    }
+
+    private static void updateTypingProgressTracking(Arena arena, int promptCharacters, int correctCharacters, int wordsTyped,
+            double minutesSpent, int wordsPerMinute, int accuracyPercent) {
+        typingChallengeCount++;
+        lifetimeCharactersTyped += promptCharacters;
+        lifetimeCorrectCharacters += correctCharacters;
+        lifetimeWordsTyped += wordsTyped;
+        lifetimeMinutesSpentTyping += minutesSpent;
+        personalBestWpm = Math.max(personalBestWpm, wordsPerMinute);
+        personalBestAccuracy = Math.max(personalBestAccuracy, accuracyPercent);
+
+        arena.typingChallengesCompleted++;
+        arena.typingCharactersTyped += promptCharacters;
+        arena.typingCharactersCorrect += correctCharacters;
+        arena.typingMillisElapsed += (long) (minutesSpent * 60_000);
+        arena.typingBestWpm = Math.max(arena.typingBestWpm, wordsPerMinute);
+        arena.typingBestAccuracy = Math.max(arena.typingBestAccuracy, accuracyPercent);
+    }
+
+    private static String getTypingProgressSummary() {
+        if (typingChallengeCount == 0) {
+            return "Typing progress: no data yet.";
+        }
+        int averageAccuracy = (int) Math.round((lifetimeCorrectCharacters * 100.0) / lifetimeCharactersTyped);
+        int averageWpm = (int) Math.round(lifetimeWordsTyped / Math.max(0.0001, lifetimeMinutesSpentTyping));
+        return String.format(
+                "Typing progress | Sessions: %d | Avg Accuracy: %d%% | Avg WPM: %d | PB WPM: %d | PB Accuracy: %d%%",
+                typingChallengeCount, averageAccuracy, averageWpm, personalBestWpm, personalBestAccuracy);
+    }
+
+    private static double getAccuracyMultiplierFromTyping(int progressPercent) {
+        if (progressPercent >= 95) {
+            return 1.15;
+        }
+        if (progressPercent >= 85) {
+            return 1.05;
+        }
+        if (progressPercent >= 70) {
+            return 1.00;
+        }
+        if (progressPercent >= 50) {
+            return 0.90;
+        }
+        return 0.75;
+    }
+
+    private static double getSpeedMultiplierFromTyping(int wordsPerMinute) {
+        if (wordsPerMinute >= 90) {
+            return 1.25;
+        }
+        if (wordsPerMinute >= 70) {
+            return 1.12;
+        }
+        if (wordsPerMinute >= 50) {
+            return 1.00;
+        }
+        if (wordsPerMinute >= 35) {
+            return 0.92;
+        }
+        return 0.82;
     }
 
     private static double getDamageMultiplierFromTyping(int progressPercent) {
@@ -285,6 +444,10 @@ public class Fight {
             return;
         }
         int moveAccuracy = moveToUse.getAccuracy();
+        if (dealer == arena.p[0]) {
+            moveAccuracy = (int) Math.round(moveAccuracy * arena.playerMoveAccuracyMultiplier);
+            moveAccuracy = Math.max(25, Math.min(100, moveAccuracy));
+        }
         if (moveToUse.getName().equals("Thunder") && arena.weather.equals("Rainy")) {
             moveAccuracy = 100;
         }

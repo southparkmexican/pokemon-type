@@ -20,6 +20,14 @@ public class Arena {
     public Engine playerEngine;
     public Engine foeEngine;
     public double playerMoveDamageMultiplier;
+    public double playerMoveAccuracyMultiplier;
+    public double playerMoveSpeedMultiplier;
+    public int typingChallengesCompleted;
+    public int typingCharactersTyped;
+    public int typingCharactersCorrect;
+    public long typingMillisElapsed;
+    public double typingBestWpm;
+    public double typingBestAccuracy;
 
     public Arena(Pokemon[] p, Pokemon[] fp, Engine playerEngine, Engine foeEngine) {
         // Initialize battle state
@@ -32,7 +40,7 @@ public class Arena {
         this.fp = fp;
         this.playerEngine = playerEngine;
         this.foeEngine = foeEngine;
-        this.playerMoveDamageMultiplier = 1.0;
+        initializeTypingCombatState();
     }
     public Arena(Pokemon[] p, Pokemon[] fp, Trainer trainer, Engine playerEngine, Engine foeEngine) {
         // Initialize battle state
@@ -46,7 +54,7 @@ public class Arena {
         this.trainer = trainer;
         this.playerEngine = playerEngine;
         this.foeEngine = foeEngine;
-        this.playerMoveDamageMultiplier = 1.0;
+        initializeTypingCombatState();
     }
     public Arena(Pokemon[] p, Trainer trainer, Engine playerEngine, Engine foeEngine) {
         // Initialize battle state
@@ -65,8 +73,20 @@ public class Arena {
         this.trainer = trainer;
         this.playerEngine = playerEngine;
         this.foeEngine = foeEngine;
-        this.playerMoveDamageMultiplier = 1.0;
+        initializeTypingCombatState();
 
+    }
+
+    private void initializeTypingCombatState() {
+        this.playerMoveDamageMultiplier = 1.0;
+        this.playerMoveAccuracyMultiplier = 1.0;
+        this.playerMoveSpeedMultiplier = 1.0;
+        this.typingChallengesCompleted = 0;
+        this.typingCharactersTyped = 0;
+        this.typingCharactersCorrect = 0;
+        this.typingMillisElapsed = 0;
+        this.typingBestWpm = 0.0;
+        this.typingBestAccuracy = 0.0;
     }
 
     public boolean isFacingGymLeader() {

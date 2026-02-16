@@ -1241,6 +1241,12 @@ public class Encounter {
         }
         dealerSpeed = dealerSpeed * dealerParalysisMult;
         recipientSpeed = recipientSpeed * recipientParalysisMult;
+        if (dealer == arena.p[0]) {
+            dealerSpeed = dealerSpeed * arena.playerMoveSpeedMultiplier;
+        }
+        if (recipient == arena.p[0]) {
+            recipientSpeed = recipientSpeed * arena.playerMoveSpeedMultiplier;
+        }
         boolean dealerIsFaster = false;
         if (dealerSpeed > recipientSpeed)
             dealerIsFaster = true;
@@ -1261,7 +1267,7 @@ public class Encounter {
             foeParalysisMult = .25;
         }
         foeSpeed = foeSpeed * foeParalysisMult;
-        playerSpeed = playerSpeed * playerParalysisMult;
+        playerSpeed = playerSpeed * playerParalysisMult * arena.playerMoveSpeedMultiplier;
         return foeSpeed == playerSpeed;
     }
 
