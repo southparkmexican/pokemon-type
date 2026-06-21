@@ -1,0 +1,17 @@
+[project]
+name = "pkm-tbpe"
+version = "0.1.0"
+description = "Pokemon Text Based Python Edition"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pygame>=2.5.0",
+    "rich>=13.0.0",
+]
+
+[project.scripts]
+pkm = "pkm_tbpe.main:main"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
