@@ -2,3 +2,6 @@ data/
 assets/graphics/
 __pycache__/
 *.pyc
+.venv/
+run
+*.egg-info/
