@@ -22,7 +22,7 @@ class Pokemon:
     base_sp_def: int = 0
     base_speed: int = 0
 
-    # Current stats
+    # Current stats (calculated from level)
     max_hp: int = 0
     hp: int = 0
     attack: int = 0
