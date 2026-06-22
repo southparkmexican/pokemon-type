@@ -1,6 +1,5 @@
 from typing import List, Optional
 from .pokemon import Pokemon
-from .user import User
 
 class Arena:
     def __init__(self, player_party: List[Optional[Pokemon]], foe_party: List[Optional[Pokemon]], trainer=None):

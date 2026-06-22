@@ -29,7 +29,6 @@ class User:
         self.reputation: int = 0
         self.record_colosseum_trainers_beaten: int = 0
 
-        # Progression flags
         self.unlocked_locations: Set[str] = {"Pallet Town"}
 
     def register_pokemon(self, pkm_name: str):
