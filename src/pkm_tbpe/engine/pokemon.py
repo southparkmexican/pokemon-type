@@ -66,13 +66,10 @@ class Pokemon:
         self.calculate_stats()
         self.hp = self.max_hp
 
-        # In Java, species.getMoves() returns a list of Move objects
-        # We need to instantiate them from DataManager
         for move_name in species.moves:
             self.moves.append(DataManager.get_move(move_name))
 
     def calculate_stats(self):
-        # Formula from Java: (int) (10 + baseHp * (level/50.0))
         self.max_hp = int(10 + self.base_hp * (self.level / 50.0))
         self.attack = int(5 + self.base_attack * (self.level / 50.0))
         self.defense = int(5 + self.base_defense * (self.level / 50.0))

@@ -25,7 +25,6 @@ class Party:
             self.pokemon[i], self.pokemon[j] = self.pokemon[j], self.pokemon[i]
 
     def smush(self):
-        """Move all pokemon to the front of the list."""
         new_party = [p for p in self.pokemon if p is not None]
         while len(new_party) < 6:
             new_party.append(None)

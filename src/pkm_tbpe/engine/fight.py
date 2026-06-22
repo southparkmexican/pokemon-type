@@ -1,8 +1,9 @@
 import random
-from typing import Optional
+from typing import Optional, List, Tuple
 from .arena import Arena
 from .pokemon import Pokemon
 from .move import Move
+from .typing import TypingGame
 
 class Fight:
     TYPE_CHART = {
@@ -50,26 +51,25 @@ class Fight:
         return 1.0
 
     @classmethod
-    def calc_damage(cls, arena: Arena, move: Move, dealer: Pokemon, recipient: Pokemon, apply_variation: bool = True) -> int:
+    def get_multiplier(cls, stage: int) -> float:
+        if stage >= 0: return (2 + stage) / 2
+        return 2 / (2 - abs(stage))
+
+    @classmethod
+    def calc_damage(cls, arena: Arena, move: Move, dealer: Pokemon, recipient: Pokemon, typing_accuracy: float = 1.0, apply_variation: bool = True) -> int:
         if move.damage == 0:
             return 0
 
         lvl_mult = (2.0 * dealer.level / 5.0) + 2.0
 
-        # Effective Attack and Defense
         burn_mult = 0.5 if dealer.status_condition == "Burn" and not move.use_special else 1.0
 
-        # Simulating getStatMultiplier from Java - basic implementation
-        def get_multiplier(stage):
-            if stage >= 0: return (2 + stage) / 2
-            return 2 / (2 - stage)
-
         if move.use_special:
-            atk = dealer.sp_atk * get_multiplier(dealer.sp_atk_stage)
-            dfn = recipient.sp_def * get_multiplier(recipient.sp_def_stage)
+            atk = dealer.sp_atk * cls.get_multiplier(dealer.sp_atk_stage)
+            dfn = recipient.sp_def * cls.get_multiplier(recipient.sp_def_stage)
         else:
-            atk = dealer.attack * get_multiplier(dealer.attack_stage) * burn_mult
-            dfn = recipient.defense * get_multiplier(recipient.defense_stage)
+            atk = dealer.attack * cls.get_multiplier(dealer.attack_stage) * burn_mult
+            dfn = recipient.defense * cls.get_multiplier(recipient.defense_stage)
 
         effectiveness = cls.get_type_effectiveness(move.type, recipient.type1) * \
                         cls.get_type_effectiveness(move.type, recipient.type2)
@@ -79,14 +79,57 @@ class Fight:
 
         eruption_mult = 1.0
         if move.name in ["Water Spout", "Eruption"]:
-            eruption_mult = dealer.hp / dealer.max_hp
+            eruption_mult = dealer.hp / max(dealer.max_hp, 1)
 
-        damage = (((lvl_mult * move.damage * (atk / dfn)) / 50.0) + 2.0) * stab * effectiveness * weather * eruption_mult
+        damage = (((lvl_mult * move.damage * (atk / max(dfn, 1))) / 50.0) + 2.0) * stab * effectiveness * weather * eruption_mult * typing_accuracy
 
         if apply_variation:
             variation = random.uniform(0.85, 1.0)
             damage *= variation
         else:
-            damage *= 0.925 # Java's default dmgRoll for calcDamageWithoutVariation
+            damage *= 0.925
 
         return int(damage)
+
+    @classmethod
+    def use_move(cls, arena: Arena, move: Move, dealer: Pokemon, recipient: Pokemon, typing_results: Optional[Tuple[float, float]] = None):
+        if dealer.hp <= 0 or recipient.hp <= 0:
+            return
+
+        accuracy, time_taken = typing_results if typing_results else (1.0, 0.0)
+
+        print(f"\n{dealer.name} used {move.name}!")
+
+        hit_threshold = random.randint(1, 100)
+        if hit_threshold > move.accuracy * accuracy:
+            print(f"But it missed!")
+            return
+
+        damage = cls.calc_damage(arena, move, dealer, recipient, accuracy)
+        recipient.hp = max(0, recipient.hp - damage)
+
+        if damage > 0:
+            print(f"It did {damage} damage!")
+            effectiveness = cls.get_type_effectiveness(move.type, recipient.type1) * \
+                            cls.get_type_effectiveness(move.type, recipient.type2)
+            if effectiveness > 1.0:
+                print("It's super effective!")
+            elif effectiveness < 1.0 and effectiveness > 0:
+                print("It's not very effective...")
+            elif effectiveness == 0:
+                print(f"It doesn't affect {recipient.name}...")
+
+        if move.effect != "None" and random.randint(1, 100) <= move.effect_accuracy:
+            cls.apply_effect(arena, move.effect, dealer, recipient)
+
+    @classmethod
+    def apply_effect(cls, arena: Arena, effect: str, dealer: Pokemon, recipient: Pokemon):
+        if effect == "Opponent Attack -1":
+            recipient.attack_stage = max(-6, recipient.attack_stage - 1)
+            print(f"{recipient.name}'s Attack fell!")
+        elif effect == "Opponent Defense -1":
+            recipient.defense_stage = max(-6, recipient.defense_stage - 1)
+            print(f"{recipient.name}'s Defense fell!")
+        elif effect == "Own Attack +1":
+            dealer.attack_stage = min(6, dealer.attack_stage + 1)
+            print(f"{dealer.name}'s Attack rose!")
